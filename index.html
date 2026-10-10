@@ -6,79 +6,295 @@
 <title>CampusConnect</title>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#FFF4FA;--card:#fff;--ink:#17263A;--mute:#5C6B7D;--line:#CBD6E0;--acc:#7C3AED;--acc-ink:#fff;--hi:#C4FF3D;--bad:#B3321F;--grid:#DCE6ED;--sh:#17263A;--pk:#FF5FA8;--lv:#A78BFA;--mt:#0891B2;--lm:#C4FF3D;--sun:#FFD84D;box-sizing:border-box}
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#120B22;--card:#17222F;--ink:#E6EDF4;--mute:#93A3B5;--line:#2A3A4D;--acc:#A78BFA;--acc-ink:#17263A;--hi:#C4FF3D;--bad:#FF8A78;--grid:#162231;--sh:#FF5FA8;--mt:#22D3EE}}
-:root[data-theme="dark"]{--bg:#120B22;--card:#17222F;--ink:#E6EDF4;--mute:#93A3B5;--line:#2A3A4D;--acc:#A78BFA;--acc-ink:#17263A;--hi:#C4FF3D;--bad:#FF8A78;--grid:#162231;--sh:#FF5FA8;--mt:#22D3EE}
-*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
-body{margin:0;background-color:var(--bg);background-image:radial-gradient(circle at 12% 8%,#FFB8DE99 0,transparent 38%),radial-gradient(circle at 88% 14%,#B9A6FF99 0,transparent 36%),radial-gradient(circle at 80% 78%,#8FF3E199 0,transparent 40%),radial-gradient(circle at 8% 88%,#FFE98A99 0,transparent 36%),radial-gradient(#17263A22 1.3px,transparent 1.5px);background-size:auto,auto,auto,auto,22px 22px;background-attachment:fixed;color:var(--ink);font:16px/1.55 "IBM Plex Sans",system-ui,sans-serif}
-h1,h2,h3{font-family:"Bricolage Grotesque","IBM Plex Sans",sans-serif;margin:0;line-height:1.15}button,input,select,textarea{font:inherit;color:inherit}button{cursor:pointer}:focus-visible{outline:3px solid var(--hi);outline-offset:2px}
-header{background:linear-gradient(100deg,#2B1B5A,#6D28D9 55%,#DB2777);color:#fff;padding:14px 20px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;border-bottom:3px solid var(--ink)}
-header h1{font-size:1.5rem;font-weight:800;letter-spacing:-.02em;text-shadow:2px 2px 0 #00000040}header h1 span{background:var(--lm);color:#17263A;padding:0 8px;margin-left:2px;border:2px solid #17263A;border-radius:8px;transform:rotate(-3deg);display:inline-block;box-shadow:3px 3px 0 #17263A}.hbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.hbar button{border:1.5px solid #fff;background:#ffffff1f;border-radius:999px;padding:6px 14px;color:#fff}.hbar button[aria-pressed=true]{background:var(--lm);color:#17263A}
-#authBtn{font-weight:700}.user-chip{display:none;align-items:center;gap:8px}.user-chip img{width:28px;height:28px;border-radius:50%;border:2px solid #fff}.user-chip span{max-width:190px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.signed-in #authBtn{display:none}.signed-in .user-chip{display:flex}
-main{max-width:1040px;margin:0 auto;padding:20px;display:grid;grid-template-columns:210px 1fr;gap:24px}nav.cats{display:flex;flex-direction:column;gap:2px;align-self:start;position:sticky;top:12px}nav.cats button{text-align:left;background:none;border:2px solid transparent;padding:7px 12px;color:var(--mute);border-radius:999px}nav.cats button[aria-current=true]{background:var(--pk);color:#17263A;border-color:var(--ink);box-shadow:3px 3px 0 var(--sh);font-weight:700}.tabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}.tabs button{border:2px solid var(--ink);background:var(--card);border-radius:999px;padding:6px 16px;font-weight:600;box-shadow:3px 3px 0 var(--sh)}.tabs button[aria-selected=true]{background:var(--lv);color:#17263A}.tabs .grow{flex:1}.btn{background:var(--lv);color:#17263A;border:2px solid var(--ink);box-shadow:3px 3px 0 var(--sh);border-radius:10px;padding:8px 16px;font-weight:700}.btn.sm{padding:4px 10px;font-size:.85rem}
-#new { color: var(--mt); font-weight: 800; }
-.search{width:100%;padding:10px 18px;border:2px solid var(--ink);border-radius:999px;background:var(--card);margin-bottom:14px;box-shadow:3px 3px 0 var(--sh)}
-form.compose{background:var(--card);border:2px solid var(--ink);box-shadow:5px 5px 0 var(--sh);border-radius:10px;padding:14px;margin-bottom:16px;display:grid;gap:10px}form.compose input,form.compose select,form.compose textarea{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--bg)}.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.row>*{flex:1;min-width:120px}.row label.chk{flex:none;display:flex;gap:6px;align-items:center}.row label.chk input{width:auto}
-.post-images{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px;margin:10px 0}.post-images img{width:100%;height:100px;object-fit:cover;border-radius:6px;border:1px solid var(--line);cursor:pointer}.preview-grid{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}.preview-thumb{position:relative;width:60px;height:60px}.preview-thumb img{width:100%;height:100%;object-fit:cover;border-radius:4px;border:1px solid var(--line)}.preview-thumb button{position:absolute;top:-6px;right:-6px;background:var(--bad);color:#fff;border:none;border-radius:50%;width:18px;height:18px;font-size:10px;cursor:pointer}
-.ai-summary{background:linear-gradient(135deg,#A78BFA22,#FF5FA822);border:1.5px dashed var(--acc);border-radius:8px;padding:8px 12px;margin:8px 0;font-size:.9rem}
-.ai-summary b{color:var(--acc);display:block;margin-bottom:2px;font-size:.8rem;text-transform:uppercase;letter-spacing:.05em}
-.post,.res{background:var(--card);border:2px solid var(--ink);box-shadow:5px 5px 0 var(--sh);border-radius:10px;display:flex;margin-bottom:12px;overflow:hidden}.vote{display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 8px;background:linear-gradient(180deg,#FFD6EC,#E3DAFF);border-right:2px solid var(--ink);min-width:52px}.vote button{background:none;border:0;font-size:1.1rem;line-height:1;padding:4px;border-radius:6px;color:#5b3a8a}.vote button.on{color:#fff;background:var(--pk)}.body{padding:12px 14px;flex:1;min-width:0}.meta{font-size:.82rem;color:var(--mute);display:flex;gap:8px;flex-wrap:wrap;align-items:center}.tag{background:var(--sun);color:#17263A;border:1.5px solid #17263A;border-radius:999px;padding:0 6px;font-weight:600;font-size:.78rem}.tag.yr{background:var(--mt);color:#fff}.post h3,.res h3{font-size:1.15rem;font-weight:800;margin:4px 0}.post p{margin:0 0 8px;overflow-wrap:anywhere}.acts{display:flex;gap:6px;flex-wrap:wrap}.acts button{background:none;border:0;color:var(--mute);padding:3px 6px;border-radius:4px;font-size:.88rem}.acts button:hover{color:var(--ink);background:var(--bg)}.comments{border-top:1px dashed var(--line);margin-top:8px;padding-top:8px}.cm{padding:6px 0 6px 10px;border-left:3px solid var(--line);margin-bottom:6px;font-size:.93rem}.cm.yr{border-left-color:var(--acc)}.cf{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap}.cf input[type=text]{flex:1;min-width:140px;padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:var(--bg)}.res{padding:12px 14px;justify-content:space-between;align-items:flex-start;flex-wrap:wrap}.res.gone{opacity:.55}.price{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:1.3rem;background:var(--lm);color:#17263A;border:2px solid #17263A;border-radius:10px;padding:0 10px;transform:rotate(2deg);display:inline-block}.empty{text-align:center;color:var(--mute);padding:30px 10px;border:2px dashed var(--ink);border-radius:10px;background:var(--card)}.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 16px;border-radius:8px;z-index:9;border:2px solid var(--lm);font-weight:600}
+/* Professional White-Blue & Black-Blue Theme */
+:root {
+  --bg: #F8FAFC;
+  --card: #FFFFFF;
+  --ink: #0F172A;
+  --mute: #64748B;
+  --line: #E2E8F0;
+  --acc: #2563EB;
+  --acc-ink: #FFFFFF;
+  --acc-hover: #1D4ED8;
+  --hi: #3B82F6;
+  --bad: #EF4444;
+  --sh: rgba(15, 23, 42, 0.08);
+  --header-grad: linear-gradient(135deg, #0F172A, #1E3A8A, #2563EB);
+  --tag-bg: #E0F2FE;
+  --tag-txt: #0284C7;
+  --tag-yr-bg: #DBEAFE;
+  --tag-yr-txt: #1E40AF;
+  box-sizing: border-box;
+}
 
-/* Ticker styling */
-.ticker{background:#17263A;color:var(--lm);border-bottom:2px solid var(--ink);overflow:hidden;white-space:nowrap;font:800 .8rem "Bricolage Grotesque",sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:6px 0}
-.ticker div{display:inline-block;padding-left:100%;animation:tk 32s linear infinite}@keyframes tk{to{transform:translateX(-100%)}}
+@media(prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #020617; 
+    --card: #0F172A; 
+    --ink: #F8FAFC;
+    --mute: #94A3B8;
+    --line: #1E293B;
+    --acc: #3B82F6;
+    --acc-ink: #FFFFFF;
+    --acc-hover: #60A5FA;
+    --hi: #60A5FA;
+    --bad: #F87171;
+    --sh: rgba(0, 0, 0, 0.4);
+    --header-grad: linear-gradient(135deg, #020617, #0F172A, #1E3A8A);
+    --tag-bg: #0C4A6E;
+    --tag-txt: #7DD3FC;
+    --tag-yr-bg: #1E3A8A;
+    --tag-yr-txt: #BFDBFE;
+  }
+}
 
-/* Modal / Onboarding Styles */
-#onboardingModal { position: fixed; inset: 0; background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; z-index: 999; }
-#onboardingModal[hidden] { display: none !important; }
-.modal-card { background: var(--card); border: 3px solid var(--ink); box-shadow: 6px 6px 0 var(--sh); border-radius: 16px; padding: 24px; width: 90%; max-width: 420px; display: grid; gap: 14px; }
-.modal-card select { width: 100%; padding: 10px; border: 2px solid var(--line); border-radius: 8px; background: var(--bg); font-weight: 600; }
+:root[data-theme="dark"] {
+  --bg: #020617;
+  --card: #0F172A;
+  --ink: #F8FAFC;
+  --mute: #94A3B8;
+  --line: #1E293B;
+  --acc: #3B82F6;
+  --acc-ink: #FFFFFF;
+  --acc-hover: #60A5FA;
+  --hi: #60A5FA;
+  --bad: #F87171;
+  --sh: rgba(0, 0, 0, 0.4);
+  --header-grad: linear-gradient(135deg, #020617, #0F172A, #1E3A8A);
+  --tag-bg: #0C4A6E;
+  --tag-txt: #7DD3FC;
+  --tag-yr-bg: #1E3A8A;
+  --tag-yr-txt: #BFDBFE;
+}
 
-/* GTA Mini Phone & Friends Widget Styles */
-#phoneWidget{position:fixed;bottom:20px;right:20px;z-index:99;font-family:"IBM Plex Sans",sans-serif}
-#phoneToggleBtn{background:var(--acc);color:var(--acc-ink);border:2px solid var(--ink);box-shadow:4px 4px 0 var(--sh);border-radius:50%;width:54px;height:54px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;cursor:pointer;transition:transform .2s;position:relative}
-#phoneToggleBtn:hover{transform:scale(1.08)}
-.badge-dot{position:absolute;top:0;right:0;background:var(--bad);color:#fff;border-radius:50%;width:18px;height:18px;font-size:10px;display:flex;align-items:center;justify-content:center;font-weight:700;border:1px solid #fff}
-#phoneContainer{display:none;width:320px;height:500px;background:var(--card);border:3px solid var(--ink);box-shadow:6px 6px 0 var(--sh);border-radius:24px;overflow:hidden;flex-direction:column}
-#phoneContainer.open{display:flex}
-.phone-header{background:var(--ink);color:var(--lm);padding:10px 14px;font-weight:800;display:flex;justify-content:space-between;align-items:center;font-size:.9rem}
-.phone-nav{display:flex;background:var(--bg);border-bottom:1px solid var(--line)}
-.phone-nav button{flex:1;background:none;border:none;padding:8px;font-weight:600;font-size:.8rem;color:var(--mute);cursor:pointer;border-bottom:2px solid transparent}
-.phone-nav button.active{color:var(--ink);border-bottom-color:var(--acc);background:var(--card)}
-.phone-body{flex:1;overflow-y:auto;padding:10px;background:var(--bg);display:flex;flex-direction:column;gap:8px}
-.chat-conv-item, .friend-req-item{background:var(--card);border:1.5px solid var(--line);padding:8px 10px;border-radius:8px;display:flex;justify-content:space-between;align-items:center;cursor:pointer}
-.msg-bubble{max-width:80%;padding:6px 10px;border-radius:8px;font-size:.85rem;margin-bottom:4px;overflow-wrap:anywhere}
-.msg-bubble.incoming{background:var(--card);border:1px solid var(--line);align-self:flex-start}
-.msg-bubble.outgoing{background:var(--lv);color:var(--ink);align-self:flex-end}
-.phone-footer{padding:8px;background:var(--card);border-top:1px solid var(--line);display:flex;gap:6px}
-.phone-footer input{flex:1;padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:var(--bg);font-size:.85rem}
+* { box-sizing: border-box; }
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
 
-#authPanel{max-width:1040px;margin:18px auto 0;padding:0 20px}.auth-card{background:var(--card);border:2px solid var(--ink);box-shadow:5px 5px 0 var(--sh);border-radius:12px;padding:18px;display:flex;align-items:center;justify-content:space-between;gap:15px}.auth-card p{margin:4px 0;color:var(--mute)}#app[hidden],#authPanel[hidden]{display:none!important}
-@media(max-width:760px){main{grid-template-columns:1fr;padding:14px}nav.cats{flex-direction:row;overflow-x:auto;position:static;padding-bottom:4px}nav.cats button{white-space:nowrap}#authPanel{padding:0 14px}.auth-card{flex-direction:column;align-items:flex-start}.user-chip span{max-width:120px}.ticker div{animation-duration:25s}}
+body {
+  margin: 0;
+  background-color: var(--bg);
+  color: var(--ink);
+  font: 15px/1.6 "IBM Plex Sans", system-ui, sans-serif;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+h1, h2, h3 { font-family: "IBM Plex Sans", sans-serif; margin: 0; line-height: 1.2; }
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; transition: all 0.2s ease; }
+:focus-visible { outline: 2px solid var(--hi); outline-offset: 2px; }
+
+/* Header styling */
+header {
+  background: var(--header-grad);
+  color: #fff;
+  padding: 16px 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  position: relative;
+  z-index: 100;
+}
+
+header h1 { font-size: 1.4rem; font-weight: 600; letter-spacing: -0.01em; }
+header h1 span { color: #93C5FD; font-weight: 400; }
+
+.hbar { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+.hbar > button {
+  border: 1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.1);
+  border-radius: 6px; padding: 8px 16px; color: #fff; font-size: 0.9rem; font-weight: 500;
+}
+.hbar > button:hover { background: rgba(255,255,255,0.2); }
+
+#authBtn { background: #fff; color: #0F172A; border: none; font-weight: 600; }
+#authBtn:hover { background: #F1F5F9; }
+
+/* Dropdown Menu Styling */
+.user-chip-wrapper { position: relative; display: none; }
+.signed-in .user-chip-wrapper { display: block; }
+.user-chip { display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 4px 8px; border-radius: 8px; transition: background 0.2s; }
+.user-chip:hover { background: rgba(255,255,255,0.1); }
+.user-chip img { width: 32px; height: 32px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.2); }
+.user-chip span { max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 0.95rem; font-weight: 500; }
+
+.dropdown-menu {
+  position: absolute; top: calc(100% + 8px); right: 0; min-width: 160px;
+  background: var(--card); border: 1px solid var(--line); box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  border-radius: 8px; padding: 8px; opacity: 0; visibility: hidden;
+  transition: all 0.2s ease; transform: translateY(10px); z-index: 100;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.user-chip-wrapper:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+.dropdown-menu button { width: 100%; text-align: left; padding: 10px 14px; background: transparent; border: none; border-radius: 6px; color: var(--ink); font-size: 0.9rem; font-weight: 500; }
+.dropdown-menu button:hover { background: var(--bg); color: var(--acc); }
+.dropdown-menu button.danger:hover { color: var(--bad); }
+
+/* Main Layout Expanded */
+main { max-width: 1400px; width: 96%; margin: 0 auto; padding: 24px; display: grid; grid-template-columns: 220px 1fr; gap: 32px; }
+
+nav.cats { display: flex; flex-direction: column; gap: 4px; align-self: start; position: sticky; top: 24px; }
+nav.cats button { text-align: left; background: transparent; border: none; padding: 10px 14px; color: var(--mute); border-radius: 6px; font-weight: 500; }
+nav.cats button:hover { background: var(--card); color: var(--ink); }
+nav.cats button[aria-current=true] { background: var(--card); color: var(--acc); font-weight: 600; box-shadow: 0 1px 3px var(--sh); border: 1px solid var(--line); }
+
+.tabs { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; border-bottom: 1px solid var(--line); padding-bottom: 12px; }
+.tabs button { border: 1px solid transparent; background: transparent; border-radius: 6px; padding: 8px 16px; font-weight: 500; color: var(--mute); }
+.tabs button:hover { background: var(--card); color: var(--ink); }
+.tabs button[aria-selected=true] { background: var(--card); color: var(--acc); border-color: var(--line); box-shadow: 0 1px 2px var(--sh); }
+.tabs .grow { flex: 1; }
+
+.btn { background: var(--acc); color: var(--acc-ink); border: none; border-radius: 6px; padding: 8px 18px; font-weight: 500; box-shadow: 0 2px 4px var(--sh); }
+.btn:hover { background: var(--acc-hover); transform: translateY(-1px); }
+.btn.sm { padding: 6px 12px; font-size: 0.85rem; }
+
+#new { background: var(--acc); color: var(--acc-ink); }
+
+.search { width: 100%; padding: 12px 18px; border: 1px solid var(--line); border-radius: 8px; background: var(--card); margin-bottom: 20px; box-shadow: 0 2px 6px var(--sh); font-size: 0.95rem; transition: border-color 0.2s; }
+.search:focus { border-color: var(--acc); outline: none; }
+
+form.compose { background: var(--card); border: 1px solid var(--line); box-shadow: 0 4px 12px var(--sh); border-radius: 8px; padding: 20px; margin-bottom: 24px; display: grid; gap: 14px; }
+form.compose input, form.compose select, form.compose textarea { width: 100%; padding: 10px 14px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); font-size: 0.95rem; }
+form.compose input:focus, form.compose select:focus, form.compose textarea:focus { border-color: var(--acc); outline: none; }
+
+.row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+.row > * { flex: 1; min-width: 120px; }
+.row label.chk { flex: none; display: flex; gap: 8px; align-items: center; font-size: 0.9rem; color: var(--mute); }
+.row label.chk input { width: auto; }
+
+.post-images { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; margin: 14px 0; }
+.post-images img { width: 100%; height: 120px; object-fit: cover; border-radius: 6px; border: 1px solid var(--line); cursor: pointer; transition: opacity 0.2s; }
+.post-images img:hover { opacity: 0.85; }
+
+.preview-grid { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
+.preview-thumb { position: relative; width: 64px; height: 64px; }
+.preview-thumb img { width: 100%; height: 100%; object-fit: cover; border-radius: 4px; border: 1px solid var(--line); }
+.preview-thumb button { position: absolute; top: -6px; right: -6px; background: var(--bad); color: #fff; border: none; border-radius: 50%; width: 20px; height: 20px; font-size: 11px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+
+.ai-summary { background: var(--bg); border: 1px solid var(--line); border-left: 3px solid var(--acc); border-radius: 6px; padding: 12px 16px; margin: 12px 0; font-size: 0.9rem; color: var(--mute); }
+.ai-summary b { color: var(--ink); display: flex; align-items: center; gap: 6px; margin-bottom: 4px; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; }
+
+.post, .res { background: var(--card); border: 1px solid var(--line); box-shadow: 0 2px 6px var(--sh); border-radius: 8px; display: flex; margin-bottom: 16px; overflow: hidden; transition: box-shadow 0.2s; }
+.post:hover, .res:hover { box-shadow: 0 4px 12px var(--sh); }
+
+.vote { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 16px 12px; background: var(--bg); border-right: 1px solid var(--line); min-width: 60px; }
+.vote button { background: transparent; border: 1px solid transparent; font-size: 1rem; line-height: 1; padding: 6px; border-radius: 4px; color: var(--mute); }
+.vote button:hover { background: var(--line); color: var(--ink); }
+.vote button.on { color: var(--acc); background: rgba(37, 99, 235, 0.1); }
+
+.body { padding: 16px 20px; flex: 1; min-width: 0; }
+.meta { font-size: 0.85rem; color: var(--mute); display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 8px; }
+
+.tag { background: var(--tag-bg); color: var(--tag-txt); border-radius: 4px; padding: 2px 8px; font-weight: 500; font-size: 0.75rem; }
+.tag.yr { background: var(--tag-yr-bg); color: var(--tag-yr-txt); }
+
+.post h3, .res h3 { font-size: 1.1rem; font-weight: 600; margin: 0 0 8px; }
+.post p { margin: 0 0 12px; overflow-wrap: anywhere; color: var(--ink); }
+
+.acts { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 12px; }
+.acts button { background: none; border: 0; color: var(--mute); padding: 4px 8px; border-radius: 4px; font-size: 0.85rem; font-weight: 500; }
+.acts button:hover { color: var(--ink); background: var(--bg); }
+
+.comments { border-top: 1px solid var(--line); margin-top: 16px; padding-top: 16px; }
+.cm { padding: 10px 0 10px 14px; border-left: 2px solid var(--line); margin-bottom: 12px; font-size: 0.95rem; }
+.cm.yr { border-left-color: var(--acc); }
+
+.cf { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
+.cf input[type=text] { flex: 1; min-width: 140px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); }
+
+.res { padding: 20px; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; }
+.res.gone { opacity: 0.6; }
+.price { font-family: "IBM Plex Sans", sans-serif; font-weight: 600; font-size: 1.2rem; color: var(--acc); padding: 4px 12px; background: var(--bg); border-radius: 6px; border: 1px solid var(--line); display: inline-block; margin-bottom: 12px; }
+
+.empty { text-align: center; color: var(--mute); padding: 40px 20px; border: 1px dashed var(--line); border-radius: 8px; background: var(--card); }
+.toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); background: var(--ink); color: var(--bg); padding: 10px 20px; border-radius: 6px; z-index: 99; font-weight: 500; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+
+/* Modals & Dashboards */
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 999; backdrop-filter: blur(4px); }
+.modal-overlay[hidden] { display: none !important; }
+.modal-card { background: var(--card); border: 1px solid var(--line); box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-radius: 12px; padding: 32px; width: 90%; max-width: 440px; display: grid; gap: 16px; }
+.modal-card h2 { font-weight: 600; font-size: 1.4rem; color: var(--ink); }
+.modal-card select { width: 100%; padding: 12px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); font-weight: 500; }
+
+.info-group { margin-bottom: 12px; }
+.info-group label { display: block; font-size: 0.85rem; color: var(--mute); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
+.info-group .info-val { font-size: 1.05rem; font-weight: 500; color: var(--ink); }
+
+.pill-container { display: flex; gap: 8px; flex-wrap: wrap; }
+.pill { background: var(--tag-bg); color: var(--tag-txt); padding: 6px 14px; border-radius: 999px; font-size: 0.85rem; font-weight: 600; border: 1px solid var(--line); }
+
+/* Phone Widget Styles */
+#phoneWidget { position: fixed; bottom: 24px; right: 24px; z-index: 99; font-family: "IBM Plex Sans", sans-serif; }
+#phoneToggleBtn { background: var(--acc); color: #fff; border: none; box-shadow: 0 4px 12px var(--sh); border-radius: 50%; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; cursor: pointer; transition: transform 0.2s, background 0.2s; position: relative; }
+#phoneToggleBtn:hover { transform: translateY(-2px); background: var(--acc-hover); }
+.badge-dot { position: absolute; top: 0; right: 0; background: var(--bad); color: #fff; border-radius: 50%; width: 20px; height: 20px; font-size: 11px; display: flex; align-items: center; justify-content: center; font-weight: 600; border: 2px solid var(--card); }
+#phoneContainer { display: none; width: 340px; height: 520px; background: var(--card); border: 1px solid var(--line); box-shadow: 0 10px 30px rgba(0,0,0,0.15); border-radius: 16px; overflow: hidden; flex-direction: column; }
+#phoneContainer.open { display: flex; }
+.phone-header { background: var(--ink); color: var(--bg); padding: 14px 16px; font-weight: 600; display: flex; justify-content: space-between; align-items: center; font-size: 0.95rem; }
+.phone-nav { display: flex; background: var(--card); border-bottom: 1px solid var(--line); }
+.phone-nav button { flex: 1; background: none; border: none; padding: 12px; font-weight: 500; font-size: 0.85rem; color: var(--mute); cursor: pointer; border-bottom: 2px solid transparent; }
+.phone-nav button.active { color: var(--acc); border-bottom-color: var(--acc); }
+.phone-body { flex: 1; overflow-y: auto; padding: 12px; background: var(--bg); display: flex; flex-direction: column; gap: 8px; }
+.chat-conv-item, .friend-req-item { background: var(--card); border: 1px solid var(--line); padding: 12px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: background 0.2s; }
+.chat-conv-item:hover { background: var(--bg); }
+.msg-bubble { max-width: 82%; padding: 8px 12px; border-radius: 8px; font-size: 0.9rem; margin-bottom: 6px; overflow-wrap: anywhere; }
+.msg-bubble.incoming { background: var(--card); border: 1px solid var(--line); align-self: flex-start; }
+.msg-bubble.outgoing { background: var(--acc); color: #fff; align-self: flex-end; }
+.phone-footer { padding: 12px; background: var(--card); border-top: 1px solid var(--line); display: flex; gap: 8px; }
+.phone-footer input { flex: 1; padding: 8px 12px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); font-size: 0.9rem; }
+
+#authPanel { max-width: 1040px; margin: 40px auto 0; padding: 0 24px; }
+.auth-card { background: var(--card); border: 1px solid var(--line); box-shadow: 0 4px 12px var(--sh); border-radius: 12px; padding: 32px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.auth-card h2 { font-size: 1.5rem; margin-bottom: 8px; }
+.auth-card p { margin: 0; color: var(--mute); font-size: 1.05rem; }
+#app[hidden], #authPanel[hidden] { display: none !important; }
+
+@media(max-width: 760px) {
+  main { grid-template-columns: 1fr; padding: 16px; width: 100%; }
+  nav.cats { flex-direction: row; overflow-x: auto; position: static; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+  nav.cats button { white-space: nowrap; }
+  #authPanel { padding: 0 16px; }
+  .auth-card { flex-direction: column; align-items: flex-start; text-align: left; }
+  .dropdown-menu { right: 0; left: auto; }
+}
 </style>
 </head>
 <body>
 <header>
   <h1>Campus<span>Connect</span></h1>
   <div class="hbar">
-    <button id="theme" aria-label="Toggle dark mode">Dark / Light</button>
-    <button id="authBtn">Sign in with Google</button>
-    <div class="user-chip" id="userChip"><img id="userPhoto" alt=""><span id="userName"></span><button id="signOutBtn">Sign out</button></div>
+    <button id="theme" aria-label="Toggle dark mode">Toggle Theme</button>
+    <button id="authBtn">Sign in with VES ID</button>
+    
+    <!-- User Chip & Dropdown Menu -->
+    <div class="user-chip-wrapper">
+      <div class="user-chip" id="userChip">
+        <img id="userPhoto" alt="">
+        <span id="userName"></span>
+        <span style="font-size: 0.7rem; margin-left: 2px;">▼</span>
+      </div>
+      <div class="dropdown-menu">
+        <button id="openProfileBtn">👤 My Profile</button>
+        <button id="signOutBtn" class="danger">🚪 Sign Out</button>
+      </div>
+    </div>
   </div>
 </header>
-<div class="ticker" aria-hidden="true"><div>DSA GRIND ERA · HACKATHON SZN · CAMPUS CONNECT · NO DUMB QUESTIONS · SHARE NOTES · INTERNSHIPS LOADING...</div></div>
 
 <section id="authPanel">
   <div class="auth-card">
-    <div><h2>Welcome to CampusConnect 👋</h2><p>Sign in with Google to create posts and connect with peers across all college years.</p></div>
-    <button class="btn" id="authBtnLarge">Sign in with Google</button>
+    <div><h2>Welcome to CampusConnect 👋</h2><p>Sign in using your <b>@ves.ac.in</b> college email to participate.</p></div>
+    <button class="btn" id="authBtnLarge">Sign in with VES ID</button>
   </div>
 </section>
 
-<div id="onboardingModal" hidden>
+<!-- Onboarding Modal -->
+<div id="onboardingModal" class="modal-overlay" hidden>
   <div class="modal-card">
-    <h2>Complete Your Profile 🎓</h2>
-    <p style="margin:0;color:var(--mute);font-size:.9rem;">Which year of college are you currently in?</p>
+    <h2>Complete Your Profile</h2>
+    <p style="margin:0;color:var(--mute);font-size:.95rem;">Which year of college are you currently in?</p>
     <select id="modalCollegeYear">
       <option value="First Year">First Year</option>
       <option value="Second Year">Second Year</option>
@@ -86,6 +302,35 @@ form.compose{background:var(--card);border:2px solid var(--ink);box-shadow:5px 5
       <option value="Fourth Year">Fourth Year</option>
     </select>
     <button class="btn" id="saveOnboardingBtn">Save & Continue</button>
+  </div>
+</div>
+
+<!-- My Profile Dashboard Modal -->
+<div id="profileModal" class="modal-overlay" hidden>
+  <div class="modal-card">
+    <h2>My Profile Dashboard</h2>
+    
+    <div class="info-group">
+      <label>Course / Branch</label>
+      <div class="info-val">Computer Engineering</div>
+    </div>
+    
+    <div class="info-group">
+      <label>Academic Year</label>
+      <div class="info-val" id="dashYearDisplay">First Year</div>
+    </div>
+    
+    <div class="info-group">
+      <label>Interests</label>
+      <div class="pill-container">
+        <span class="pill">Webdev</span>
+        <span class="pill">Football</span>
+        <span class="pill">Music</span>
+        <span class="pill">UI/UX</span>
+      </div>
+    </div>
+    
+    <button class="btn" id="closeProfileBtn" style="margin-top:10px; background:var(--line); color:var(--ink); box-shadow:none;">Close Dashboard</button>
   </div>
 </div>
 
@@ -100,7 +345,7 @@ form.compose{background:var(--card);border:2px solid var(--ink);box-shadow:5px 5
       <button class="btn" id="new">+ New post</button>
     </div>
     <div id="compose"></div>
-    <input class="search" id="q" type="search" placeholder="Search posts and resources" aria-label="Search">
+    <input class="search" id="q" type="search" placeholder="Search posts and resources..." aria-label="Search">
     <div id="feed"></div>
   </section>
 </main>
@@ -109,12 +354,12 @@ form.compose{background:var(--card);border:2px solid var(--ink);box-shadow:5px 5
 <div id="phoneWidget" hidden>
   <div id="phoneContainer">
     <div class="phone-header">
-      <span>📱 iFruit Campus</span>
-      <button class="btn sm" id="closePhoneBtn" style="padding:2px 6px;">×</button>
+      <span>📱 Campus Chat</span>
+      <button class="btn sm" id="closePhoneBtn" style="padding:2px 8px; background:rgba(255,255,255,0.2); color:#fff; border:none;">✕</button>
     </div>
     <div class="phone-nav">
       <button id="navTabChats" class="active">💬 Chats</button>
-      <button id="navTabReqs">👥 Requests <span id="reqBadgeCount" style="background:var(--bad);color:#fff;border-radius:50%;padding:1px 5px;font-size:10px;display:none;">0</span></button>
+      <button id="navTabReqs">👥 Requests <span id="reqBadgeCount" style="background:var(--bad);color:#fff;border-radius:50%;padding:2px 6px;font-size:10px;display:none;margin-left:4px;">0</span></button>
     </div>
     <div class="phone-body" id="phoneBody"></div>
   </div>
@@ -151,11 +396,26 @@ const auth = getAuth(firebaseApp);
 const db = getFirestore(firebaseApp);
 const provider = new GoogleAuthProvider();
 
+provider.setCustomParameters({
+  hd: "ves.ac.in"
+});
+
+const profanityPatterns = [
+  /f\s*[u\*@!]+\s*c?\s*k/gi,
+  /sh\s*[i\*@!]+\s*t/gi,
+  /b\s*[i\*@!]+\s*t\s*c\s*h/gi
+]; 
+
+function containsProfanity(text) {
+  if (!text) return false;
+  return profanityPatterns.some(pattern => pattern.test(text));
+}
+
 const CATS=["All","Academics & DSA","Hackathons & Competitions","Internships & Careers","Tech Domains","Campus Life","Study Resources"];
 const EM={"All":"📌","Academics & DSA":"📚","Hackathons & Competitions":"🏆","Internships & Careers":"💼","Tech Domains":"💻","Campus Life":"🎓","Study Resources":"📖"};
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 let S={posts:[],res:[],chats:[],friendData:{requests:[],friends:[]}};
-let st={cat:"All",tab:"d",open:null,compose:false,q:"",selectedFiles:[],activeChat:null,phoneTab:"chats"};
+let st={cat:"All",tab:"d",open:null,compose:false,q:"",selectedFiles:[],chatSelectedFileBase64:null,activeChat:null,phoneTab:"chats"};
 let currentUser=null;
 let currentUserProfile=null;
 let unsubPosts=null, unsubRes=null, unsubChats=null, unsubFriends=null;
@@ -168,6 +428,14 @@ function ago(ts){
 }
 function who(o){return o.anon?"Anonymous Student":esc(o.name||"Student")}
 function tag(yr){return yr?`<span class="tag yr">${esc(yr)}</span>`:""}
+
+// Profile Modal Logic
+$("openProfileBtn").onclick = () => {
+  $("profileModal").hidden = false;
+};
+$("closeProfileBtn").onclick = () => {
+  $("profileModal").hidden = true;
+};
 
 function generateAISummary(title, body) {
   const cleanTitle = (title || "").trim();
@@ -194,7 +462,7 @@ function renderCompose(){
     </div>
     <div class="row">
       <input name="name" placeholder="Your first name (used if not anonymous)">
-      <label class="btn sm" style="display:flex;align-items:center;justify-content:center;cursor:pointer;margin:0;">
+      <label class="btn sm" style="display:flex;align-items:center;justify-content:center;cursor:pointer;margin:0;background:var(--line);color:var(--ink);">
         📷 Add Photos <input type="file" id="postImagesInput" accept="image/png, image/jpeg, image/webp" multiple style="display:none">
       </label>
       <button class="btn" type="submit">Post</button>
@@ -204,8 +472,12 @@ function renderCompose(){
   else el.innerHTML=`<form class="compose" id="rf">
     <input name="title" required maxlength="100" placeholder="What are you sharing? (book, calculator, notes...)">
     <textarea name="desc" rows="2" maxlength="300" placeholder="Condition, pickup place, details"></textarea>
-    <div class="row"><select name="type"><option>Give away</option><option>Sell</option><option>Swap</option></select><input name="price" type="number" min="0" placeholder="Price in ₹ (if selling)"><select name="cat">${opts}</select></div>
-    <div class="row"><input name="name" placeholder="Your first name" required><button class="btn" type="submit">Share</button></div>
+    <div class="row">
+      <select name="type"><option>Give away</option><option>Sell</option><option>Swap</option></select>
+      <input name="price" type="number" min="0" placeholder="Price in ₹ (if selling)">
+      <input name="phone" required placeholder="Phone / WhatsApp Number">
+    </div>
+    <div class="row"><select name="cat">${opts}</select><input name="name" placeholder="Your first name" required><button class="btn" type="submit">Share</button></div>
   </form>`;
 
   const fileInput = $("postImagesInput");
@@ -228,7 +500,7 @@ function renderPreviews() {
   grid.innerHTML = st.selectedFiles.map((file, idx) => `
     <div class="preview-thumb">
       <img src="${URL.createObjectURL(file)}" alt="preview">
-      <button type="button" data-idx="${idx}">×</button>
+      <button type="button" data-idx="${idx}">✕</button>
     </div>
   `).join("");
   grid.querySelectorAll("button").forEach(btn => {
@@ -250,16 +522,17 @@ function postHTML(p){
   
   let friendBtnHTML = "";
   if(!p.anon && p.uid && p.uid !== currentUser?.uid) {
-    const isFriend = S.friendData.friends?.includes(p.uid);
+    const friendEntries = S.friendData.friends || [];
+    const isFriend = friendEntries.some(f => (typeof f === 'string' ? f === p.uid : f.uid === p.uid));
     const sentReq = S.friendData.requests?.some(r => r.to === p.uid && r.from === currentUser?.uid && r.status === "pending");
     const incomingReq = S.friendData.requests?.some(r => r.from === p.uid && r.to === currentUser?.uid && r.status === "pending");
 
     if(isFriend) {
-      friendBtnHTML = `<button class="btn sm" disabled style="background:var(--mt);">Friends ✓</button>`;
+      friendBtnHTML = `<button class="btn sm" disabled style="background:var(--mt);color:#fff;">Friends ✓</button>`;
     } else if(sentReq) {
-      friendBtnHTML = `<button class="btn sm" data-a="cancel-req" data-uid="${esc(p.uid)}" style="background:var(--line);">Request Sent</button>`;
+      friendBtnHTML = `<button class="btn sm" disabled style="background:var(--line);">Request Sent</button>`;
     } else if(incomingReq) {
-      friendBtnHTML = `<button class="btn sm" data-a="accept-req-direct" data-uid="${esc(p.uid)}">Accept Request</button>`;
+      friendBtnHTML = `<button class="btn sm" data-a="accept-req-direct" data-uid="${esc(p.uid)}" data-name="${esc(p.name)}">Accept Request</button>`;
     } else {
       friendBtnHTML = `<button class="btn sm" data-a="add-friend" data-uid="${esc(p.uid)}" data-name="${esc(p.name)}">➕ Add Friend</button>`;
     }
@@ -271,16 +544,25 @@ function postHTML(p){
     <h3>${esc(p.title)}</h3>${p.body?`<p>${esc(p.body)}</p>`:""}${imagesHTML}
     <div class="ai-summary"><b>🤖 AI Summary</b>${esc(summary)}</div>
     <div class="acts"><button data-a="cm">${comments.length} ${comments.length===1?"reply":"replies"}</button><button data-a="rep">Report</button></div>
-    ${open?`<div class="comments">${cm||'<div class="meta">No replies yet. Be the first to help.</div>'}<form class="cf" data-id="${esc(p.id)}"><input type="text" name="t" required maxlength="400" placeholder="Write a reply"><label class="chk meta"><input type="checkbox" name="anon" checked> Anonymous</label><button class="btn sm" type="submit">Reply</button></form></div>`:""}
+    ${open?`<div class="comments">${cm||'<div class="meta">No replies yet. Be the first to help.</div>'}<form class="cf" data-id="${esc(p.id)}"><input type="text" name="t" required maxlength="400" placeholder="Write a reply..."><label class="chk meta"><input type="checkbox" name="anon" checked> Anonymous</label><button class="btn sm" type="submit">Reply</button></form></div>`:""}
     </div></article>`;
 }
 
 function resHTML(r){
   const label=r.type==="Sell"?"₹"+(r.price||0):r.type==="Swap"?"Swap":"Free";
+  const canCancel = r.taken && (r.uid === currentUser?.uid || r.takenBy === currentUser?.uid);
   return `<article class="res${r.taken?" gone":""}" data-id="${esc(r.id)}"><div>
-    <div class="meta">${tag(r.year)}<span>${esc(r.by)}</span><span>${esc(r.cat)}</span></div><h3>${esc(r.title)}</h3><p style="margin:4px 0">${esc(r.desc||"")}</p>
+    <div class="meta">${tag(r.year)}<span>${esc(r.by)}</span><span>${esc(r.cat)}</span></div>
+    <h3>${esc(r.title)}</h3>
+    <p style="margin:4px 0">${esc(r.desc||"")}</p>
+    ${r.phone ? `<p style="margin:4px 0;font-size:.85rem;">📞 <b>Contact:</b> <a href="tel:${esc(r.phone)}" style="color:var(--acc);font-weight:600;">${esc(r.phone)}</a></p>` : ""}
     <div class="acts"><button data-a="rrep">Report</button></div></div>
-    <div style="text-align:right"><div class="price">${label}</div><button class="btn sm" data-a="take" ${r.taken?"disabled":""}>${r.taken?"Taken":"Request this"}</button></div></article>`;
+    <div style="text-align:right"><div class="price">${label}</div>
+    ${r.taken ? 
+      (canCancel ? `<button class="btn sm" data-a="cancel-take" style="background:var(--bad);color:#fff;margin-top:4px;">Cancel Request</button>` : `<button class="btn sm" disabled>Taken</button>`)
+      : `<button class="btn sm" data-a="take">Request this</button>`
+    }
+    </div></article>`;
 }
 
 function renderFeed(){
@@ -345,38 +627,66 @@ async function sendFriendRequest(toUid, toName) {
   if(!currentUser || toUid === currentUser.uid) return;
   const targetRef = doc(db, "friendships", toUid);
   const myRef = doc(db, "friendships", currentUser.uid);
-  const reqObj = { from: currentUser.uid, fromName: currentUser.displayName || "Student", to: toUid, status: "pending", ts: Date.now() };
+  
+  const myRealName = currentUser.displayName || currentUserProfile?.name || "Student";
+  const reqObj = { from: currentUser.uid, fromName: myRealName, to: toUid, status: "pending", ts: Date.now() };
 
-  const targetSnap = await getDoc(targetRef);
-  let targetData = targetSnap.exists() ? targetSnap.data() : { requests: [], friends: [] };
-  targetData.requests.push(reqObj);
-  await setDoc(targetRef, targetData, {merge:true});
+  try {
+    const targetSnap = await getDoc(targetRef);
+    let targetData = targetSnap.exists() ? targetSnap.data() : { requests: [], friends: [] };
+    if(!targetData.requests) targetData.requests = [];
+    if(!targetData.friends) targetData.friends = [];
+    targetData.requests.push(reqObj);
+    await setDoc(targetRef, targetData, {merge:true});
 
-  const mySnap = await getDoc(myRef);
-  let myData = mySnap.exists() ? mySnap.data() : { requests: [], friends: [] };
-  myData.requests.push(reqObj);
-  await setDoc(myRef, myData, {merge:true});
-  toast(`Friend request sent to ${toName}`);
+    const mySnap = await getDoc(myRef);
+    let myData = mySnap.exists() ? mySnap.data() : { requests: [], friends: [] };
+    if(!myData.requests) myData.requests = [];
+    if(!myData.friends) myData.friends = [];
+    myData.requests.push(reqObj);
+    await setDoc(myRef, myData, {merge:true});
+    toast(`Friend request sent to ${toName}`);
+  } catch(err) {
+    console.error(err);
+    toast("Could not send friend request.");
+  }
 }
 
 async function acceptFriendRequest(req) {
   const myRef = doc(db, "friendships", currentUser.uid);
   const senderRef = doc(db, "friendships", req.from);
 
+  const myName = currentUser.displayName || currentUserProfile?.name || "Student";
+  
+  let senderName = req.fromName || "Student";
+  try {
+    const senderUserSnap = await getDoc(doc(db, "users", req.from));
+    if(senderUserSnap.exists() && senderUserSnap.data().name) {
+      senderName = senderUserSnap.data().name;
+    }
+  } catch(e) { console.error(e); }
+
   const mySnap = await getDoc(myRef);
   let myData = mySnap.exists() ? mySnap.data() : { requests: [], friends: [] };
-  myData.friends.push(req.from);
+  if(!myData.friends) myData.friends = [];
+  if(!myData.requests) myData.requests = [];
+  
+  if(!myData.friends.some(f => (typeof f === 'string' ? f === req.from : f.uid === req.from))) {
+    myData.friends.push({ uid: req.from, name: senderName });
+  }
   myData.requests = myData.requests.filter(r => !(r.from === req.from && r.to === currentUser.uid));
   await setDoc(myRef, myData, {merge:true});
 
   const senderSnap = await getDoc(senderRef);
   let senderData = senderSnap.exists() ? senderSnap.data() : { requests: [], friends: [] };
-  senderData.friends.push(currentUser.uid);
+  if(!senderData.friends) senderData.friends = [];
+  if(!senderData.requests) senderData.requests = [];
+  
+  if(!senderData.friends.some(f => (typeof f === 'string' ? f === currentUser.uid : f.uid === currentUser.uid))) {
+    senderData.friends.push({ uid: currentUser.uid, name: myName });
+  }
   senderData.requests = senderData.requests.filter(r => !(r.from === req.from && r.to === currentUser.uid));
   await setDoc(senderRef, senderData, {merge:true});
-
-  const myName = currentUser.displayName || "Student";
-  const friendName = req.fromName || "Student";
 
   await addDoc(collection(db,"chats"), {
     isGroup: false,
@@ -384,9 +694,14 @@ async function acceptFriendRequest(req) {
     members: [currentUser.uid, req.from],
     memberNames: {
       [currentUser.uid]: myName,
-      [req.from]: friendName
+      [req.from]: senderName
     },
-    messages: [{text: "You are now connected as friends!", uid: "system", name: "System", ts: Date.now()}]
+    messages: [{
+      text: "You are now connected as friends! Say hello 👋", 
+      uid: "system", 
+      name: "System", 
+      ts: Date.now()
+    }]
   });
   toast("Friend request accepted & private chat unlocked!");
 }
@@ -396,14 +711,30 @@ async function declineFriendRequest(req) {
   const mySnap = await getDoc(myRef);
   if(mySnap.exists()) {
     let myData = mySnap.data();
+    if(!myData.requests) myData.requests = [];
     myData.requests = myData.requests.filter(r => !(r.from === req.from && r.to === currentUser.uid));
     await setDoc(myRef, myData, {merge:true});
     toast("Friend request declined");
   }
 }
 
+async function ensureFriendshipDoc(user) {
+  const fRef = doc(db, "friendships", user.uid);
+  const snap = await getDoc(fRef);
+  if (!snap.exists()) {
+    await setDoc(fRef, { requests: [], friends: [] });
+  }
+}
+
 async function handleSuccessfulAuth(user) {
   currentUser = user;
+
+  if (!user.email || !user.email.endsWith("@ves.ac.in")) {
+    toast("Access restricted. Please sign in with your @ves.ac.in college email.");
+    await signOut(auth);
+    return;
+  }
+
   const userDocRef = doc(db, "users", user.uid);
   const userSnap = await getDoc(userDocRef);
 
@@ -425,14 +756,21 @@ async function handleSuccessfulAuth(user) {
   }
 }
 
-function initializeUIState(user) {
+async function initializeUIState(user) {
   document.body.classList.add("signed-in");
   $("authPanel").hidden = true;
   $("app").hidden = false;
   $("phoneWidget").hidden = false;
   $("userPhoto").src = user.photoURL || "";
-  $("userName").textContent = `${user.displayName || "Student"} (${currentUserProfile.collegeYear})`;
+  $("userName").textContent = `${user.displayName || "Student"}`;
+  
+  // Set modal details dynamically
+  const displayYear = currentUserProfile.collegeYear || "First Year";
+  const yearDisplayEl = $("dashYearDisplay");
+  if(yearDisplayEl) { yearDisplayEl.textContent = displayYear; }
+
   try {
+    await ensureFriendshipDoc(user);
     seedDemoData();
     startRealtimeListeners();
     render();
@@ -450,7 +788,7 @@ $("signOutBtn").onclick = async () => {
       const userDocRef = doc(db, "users", currentUser.uid);
       await setDoc(userDocRef, { collegeYear: null }, { merge: true });
     }
-    currentUserProfile = null; st.activeChat = null; st.selectedFiles = [];
+    currentUserProfile = null; st.activeChat = null; st.selectedFiles = []; st.chatSelectedFileBase64 = null;
     await signOut(auth);
     toast("Signed out & profile reset");
   } catch (err) { console.error(err); toast("Error signing out"); }
@@ -503,16 +841,74 @@ function renderPhone(){
           <span>💬</span>
         </div>
       `;
-    }).join("") : `<div class="empty" style="padding:15px;font-size:.9rem;">No active chats yet. Create a group or accept a friend request!</div>`;
+    }).join("") : `<div class="empty" style="padding:10px;font-size:.85rem;">No active chats yet.</div>`;
+
+    const existingChatPartnerUids = new Set();
+    S.chats.forEach(c => {
+      if(!c.isGroup && c.members) {
+        const partner = c.members.find(uid => uid !== currentUser.uid);
+        if(partner) existingChatPartnerUids.add(partner);
+      }
+    });
+
+    const friendsList = S.friendData.friends || [];
+    const availableFriends = friendsList.map(f => {
+      if(typeof f === 'string') return { uid: f, name: "Friend" };
+      return f;
+    }).filter(f => !existingChatPartnerUids.has(f.uid));
+
+    let friendsHTML = "";
+    if(availableFriends.length > 0) {
+      friendsHTML = `
+        <div style="font-weight:700;margin-top:8px;margin-bottom:4px;font-size:.8rem;color:var(--mute)">YOUR FRIENDS (TAP TO START CHAT)</div>
+        <div style="display:flex;flex-direction:column;gap:4px;">
+          ${availableFriends.map(f => `
+            <div class="chat-conv-item start-friend-chat" data-frienduid="${esc(f.uid)}" data-friendname="${esc(f.name)}">
+              <div><b>👤 ${esc(f.name)}</b><div class="meta">Start private conversation</div></div>
+              <span>➕</span>
+            </div>
+          `).join("")}
+        </div>
+      `;
+    }
 
     body.innerHTML = `
-      <div style="font-weight:700;margin-bottom:6px;font-size:.85rem;color:var(--mute)">SECURE CHATS & GROUPS</div>
-      <div style="flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:6px;">${listHTML}</div>
-      <button class="btn sm" id="createGroupChatBtn" style="margin-top:6px;background:var(--acc);color:var(--acc-ink);">+ Create New Group</button>
+      <div style="font-weight:700;margin-bottom:4px;font-size:.8rem;color:var(--mute)">ACTIVE CONVERSATIONS</div>
+      <div style="max-height:180px;overflow-y:auto;display:flex;flex-direction:column;gap:6px;">${listHTML}</div>
+      ${friendsHTML}
+      <button class="btn sm" id="createGroupChatBtn" style="margin-top:8px;background:var(--acc);color:var(--acc-ink);">+ Create New Group</button>
     `;
 
-    body.querySelectorAll(".chat-conv-item").forEach(el=>{
+    body.querySelectorAll(".chat-conv-item[data-chatid]").forEach(el=>{
       el.onclick = () => { st.activeChat = el.dataset.chatid; renderPhone(); };
+    });
+
+    body.querySelectorAll(".start-friend-chat").forEach(el => {
+      el.onclick = async () => {
+        const friendUid = el.dataset.frienduid;
+        const friendName = el.dataset.friendname || "Friend";
+        const myName = currentUser.displayName || currentUserProfile?.name || "Student";
+        
+        const newChatRef = await addDoc(collection(db, "chats"), {
+          isGroup: false,
+          createdAt: serverTimestamp(),
+          members: [currentUser.uid, friendUid],
+          memberNames: {
+            [currentUser.uid]: myName,
+            [friendUid]: friendName
+          },
+          messages: [{
+            text: "Started a private chat. Say hello! 👋",
+            uid: "system",
+            name: "System",
+            ts: Date.now()
+          }]
+        });
+
+        st.activeChat = newChatRef.id;
+        renderPhone();
+        toast("Private chat started!");
+      };
     });
 
     const groupBtn = $("createGroupChatBtn");
@@ -520,12 +916,18 @@ function renderPhone(){
       groupBtn.onclick = async () => {
         const groupName = prompt("Enter Group Chat Name:");
         if(!groupName) return;
+        if(containsProfanity(groupName)) {
+          toast("❌ Group creation rejected: Prohibited language detected.");
+          return;
+        }
+        const myName = currentUser.displayName || currentUserProfile?.name || "Student";
         await addDoc(collection(db,"chats"),{
           isGroup: true,
           title: groupName,
-          lastMessage: `Group created by ${currentUser.displayName || "Student"}`,
+          lastMessage: `Group created by ${myName}`,
           createdAt: serverTimestamp(),
           members: [currentUser.uid],
+          memberNames: { [currentUser.uid]: myName },
           messages: [{text: `Group "${groupName}" was created.`, uid: "system", name: "System", ts: Date.now()}]
         });
         toast("Group created successfully!");
@@ -549,32 +951,90 @@ function renderPhone(){
         </div>
         ${chat.isGroup ? `<button class="btn sm" id="addGroupMemberBtn" style="font-size:.7rem;padding:2px 6px;" title="Add friend to group">+ Add Member</button>` : ``}
       </div>
-      <div style="flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:4px;" id="msgList">
-        ${msgs.length ? msgs.map(m=>`<div class="msg-bubble ${m.uid===currentUser?.uid?'outgoing':'incoming'}"><b>${esc(m.name)}:</b>${esc(m.text)}</div>`).join("") : '<div class="meta" style="text-align:center;margin-top:20px;">No messages here yet. Say hello!</div>'}
+      <div style="flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:6px;" id="msgList">
+        ${msgs.length ? msgs.map(m=>`
+          <div class="msg-bubble ${m.uid===currentUser?.uid?'outgoing':'incoming'}">
+            <b>${esc(m.name)}:</b>${m.text ? `<div>${esc(m.text)}</div>` : ""}
+            ${m.image ? `<img src="${esc(m.image)}" alt="chat photo" style="max-width:100%;border-radius:6px;margin-top:4px;cursor:pointer;" onclick="window.open('${esc(m.image)}','_blank')">` : ""}
+          </div>
+        `).join("") : '<div class="meta" style="text-align:center;margin-top:20px;">No messages here yet. Say hello!</div>'}
       </div>
-      <form class="phone-footer" id="chatMsgForm">
-        <input name="msg" placeholder="Type a message..." required autocomplete="off">
+      <div id="chatImagePreview" style="display:flex;gap:6px;flex-wrap:wrap;padding:4px 8px;"></div>
+      <form class="phone-footer" id="chatMsgForm" style="display:flex;gap:4px;align-items:center;">
+        <label class="btn sm" style="padding:4px 8px;margin:0;cursor:pointer;" title="Attach photo">📷<input type="file" id="chatImageInput" accept="image/*" style="display:none"></label>
+        <input name="msg" placeholder="Type a message..." autocomplete="off" style="flex:1;">
         <button class="btn sm" type="submit">Send</button>
       </form>
     `;
 
-    $("backToChats").onclick = () => { st.activeChat = null; renderPhone(); };
+    $("backToChats").onclick = () => { st.activeChat = null; st.chatSelectedFileBase64 = null; renderPhone(); };
     
     const msgList = $("msgList");
     if(msgList) msgList.scrollTop = msgList.scrollHeight;
 
+    const chatImgInput = $("chatImageInput");
+    if(chatImgInput) {
+      chatImgInput.onchange = (e) => {
+        const file = e.target.files[0];
+        if(!file) return;
+        if(file.size > 5 * 1024 * 1024) { toast("Image must be smaller than 5MB"); return; }
+        const reader = new FileReader();
+        reader.onload = ev => {
+          st.chatSelectedFileBase64 = ev.target.result;
+          $("chatImagePreview").innerHTML = `<div class="preview-thumb"><img src="${ev.target.result}" alt="preview"><button type="button" id="removeChatImgBtn">×</button></div>`;
+          const removeBtn = $("removeChatImgBtn");
+          if(removeBtn) {
+            removeBtn.onclick = () => { st.chatSelectedFileBase64 = null; $("chatImagePreview").innerHTML = ""; };
+          }
+        };
+        reader.readAsDataURL(file);
+      };
+    }
+
     if(chat.isGroup) {
       $("addGroupMemberBtn").onclick = async () => {
-        const friendUid = prompt("Enter User UID of the friend you want to add to this group:");
-        if(!friendUid) return;
-        if(chat.members.includes(friendUid)) { toast("User is already in this group"); return; }
+        const friends = S.friendData.friends || [];
+        if(friends.length === 0) {
+          toast("You have no friends to add yet!");
+          return;
+        }
         
+        // Show friend selector dialog using prompt or list
+        const friendListStr = friends.map((f, i) => `${i + 1}. ${f.name}`).join("\n");
+        const selection = prompt(`Select a friend to add by number:\n${friendListStr}`);
+        if(!selection) return;
+
+        const index = parseInt(selection) - 1;
+        const selectedFriend = friends[index];
+        if(!selectedFriend) {
+          toast("Invalid selection.");
+          return;
+        }
+
+        const friendUid = selectedFriend.uid;
+        const friendName = selectedFriend.name || "Friend";
+
+        if(chat.members && chat.members.includes(friendUid)) { 
+          toast("User is already in this group"); 
+          return; 
+        }
+
         const chatRef = doc(db, "chats", st.activeChat);
+        const updatedMessages = chat.messages || [];
+        updatedMessages.push({
+          text: `${friendName} was added to the group.`, 
+          uid: "system", 
+          name: "System", 
+          ts: Date.now()
+        });
+
         await updateDoc(chatRef, {
           members: arrayUnion(friendUid),
-          messages: arrayUnion({text: `A new member was added to the group.`, uid: "system", name: "System", ts: Date.now()})
+          [`memberNames.${friendUid}`]: friendName,
+          messages: updatedMessages,
+          lastMessage: `${friendName} joined the group`
         });
-        toast("Member added to group!");
+        toast("Member added to group successfully!");
       };
     }
 
@@ -582,14 +1042,33 @@ function renderPhone(){
       e.preventDefault();
       const input = e.target.elements.msg;
       const text = input.value.trim();
-      if(!text) return;
+      const image = st.chatSelectedFileBase64 || null;
+
+      if(!text && !image) return;
+      if(text && containsProfanity(text)) {
+        toast("❌ Message rejected: Prohibited language is not allowed.");
+        return;
+      }
+
       const chatRef = doc(db,"chats",st.activeChat);
       const snap = await getDoc(chatRef);
       if(!snap.exists()) return;
       const messages = snap.data().messages || [];
-      messages.push({text, uid:currentUser.uid, name:currentUser.displayName||"Student", ts:Date.now()});
-      await updateDoc(chatRef,{messages, lastMessage:text});
+      const myName = currentUser.displayName || currentUserProfile?.name || "Student";
+      messages.push({
+        text: text || "",
+        image: image,
+        uid: currentUser.uid,
+        name: myName,
+        ts: Date.now()
+      });
+      await updateDoc(chatRef, {
+        messages, 
+        lastMessage: text || "📷 Photo"
+      });
       input.value = "";
+      st.chatSelectedFileBase64 = null;
+      $("chatImagePreview").innerHTML = "";
     };
   }
 }
@@ -599,14 +1078,28 @@ $("t-d").onclick=()=>{st.tab="d";st.compose=false;render()};
 $("t-r").onclick=()=>{st.tab="r";st.compose=false;render()};
 $("new").onclick=()=>{st.compose=!st.compose;st.selectedFiles=[];render()};
 $("q").oninput=e=>{st.q=e.target.value;renderFeed()};
-$("theme").onclick=()=>{const r=document.documentElement,d=getComputedStyle(r).getPropertyValue("--bg").trim()==="#120B22";r.dataset.theme=d?"light":"dark"};
+
+$("theme").onclick=()=>{
+  const r=document.documentElement;
+  const isDark = getComputedStyle(r).getPropertyValue("--bg").trim() === "#020617" || r.dataset.theme === "dark";
+  r.dataset.theme = isDark ? "light" : "dark";
+};
 
 $("compose").onsubmit=async e=>{
   e.preventDefault(); if(!currentUser)return toast("Sign in first");
   const f=new FormData(e.target);
   try{
     const userCollegeYear = currentUserProfile?.collegeYear || "First Year";
+    const myName = currentUser.displayName || currentUserProfile?.name || "Student";
     if(e.target.id==="cf"){
+      const title = f.get("title").trim();
+      const bodyText = f.get("body").trim();
+
+      if(containsProfanity(title) || containsProfanity(bodyText)) {
+        toast("❌ Post rejected: Abusive or prohibited language is not allowed.");
+        return;
+      }
+
       const uploadedUrls = [];
       for(const file of st.selectedFiles) {
         const reader = new FileReader();
@@ -616,19 +1109,30 @@ $("compose").onsubmit=async e=>{
         });
         uploadedUrls.push(base64);
       }
-      const title = f.get("title").trim();
-      const bodyText = f.get("body").trim();
       const isAnon = !!f.get("anon");
 
       await addDoc(collection(db,"posts"),{
         cat:f.get("cat"), title, body:bodyText, anon:isAnon,
-        name:isAnon ? "Anonymous Student" : ((f.get("name")||"").trim()||currentUser.displayName||"Student"),
+        name:isAnon ? "Anonymous Student" : ((f.get("name")||"").trim()||myName),
         year: userCollegeYear, voters:[], comments:[], images: uploadedUrls,
         aiSummary: generateAISummary(title, bodyText), uid:currentUser.uid, createdAt:serverTimestamp()
       });
       st.tab="d"; st.selectedFiles=[]; toast("Posted to CampusConnect");
     }else{
-      await addDoc(collection(db,"resources"),{title:f.get("title").trim(),type:f.get("type"),price:+f.get("price")||0,cat:f.get("cat"),desc:f.get("desc").trim(),by:f.get("name").trim(),year:userCollegeYear,taken:false,uid:currentUser.uid,createdAt:serverTimestamp()});
+      const title = f.get("title").trim();
+      const desc = f.get("desc").trim();
+      const phone = f.get("phone").trim();
+
+      if(containsProfanity(title) || containsProfanity(desc)) {
+        toast("❌ Resource rejected: Abusive or prohibited language is not allowed.");
+        return;
+      }
+
+      await addDoc(collection(db,"resources"),{
+        title, type:f.get("type"), price:+f.get("price")||0,
+        cat:f.get("cat"), desc, phone, by:f.get("name").trim()||myName,
+        year:userCollegeYear, taken:false, takenBy:null, uid:currentUser.uid, createdAt:serverTimestamp()
+      });
       st.tab="r"; toast("Resource shared");
     }
     st.compose=false; render();
@@ -645,10 +1149,17 @@ $("feed").onclick=async e=>{
       await updateDoc(ref,{voters:already?arrayRemove(currentUser.uid):arrayUnion(currentUser.uid)});
     }else if(a==="cm"){st.open=st.open===id?null:id;renderFeed()}
     else if(a==="rep"){toast("Reported. Moderators will review.")}
-    else if(a==="take"){await updateDoc(doc(db,"resources",id),{taken:true});toast("Requested")}
+    else if(a==="take"){
+      await updateDoc(doc(db,"resources",id),{ taken: true, takenBy: currentUser.uid });
+      toast("Resource requested");
+    }
+    else if(a==="cancel-take"){
+      await updateDoc(doc(db,"resources",id),{ taken: false, takenBy: null });
+      toast("Resource request cancelled");
+    }
     else if(a==="rrep"){toast("Reported.")}
     else if(a==="add-friend") { await sendFriendRequest(b.dataset.uid, b.dataset.name); }
-    else if(a==="accept-req-direct") { await acceptFriendRequest({from: b.dataset.uid, fromName: "Student"}); }
+    else if(a==="accept-req-direct") { await acceptFriendRequest({from: b.dataset.uid, fromName: b.dataset.name}); }
   }catch(err){console.error(err);toast("Action failed.")}
 };
 
@@ -656,11 +1167,19 @@ $("feed").onsubmit=async e=>{
   e.preventDefault();if(!currentUser)return;
   const id=e.target.dataset.id,f=new FormData(e.target),ref=doc(db,"posts",id);
   try{
+    const commentText = f.get("t").trim();
+    if(containsProfanity(commentText)) {
+      toast("❌ Reply rejected: Abusive or prohibited language is not allowed.");
+      return;
+    }
+
     const snap=await getDoc(ref);if(!snap.exists())return;
     const comments=snap.data().comments||[];
     const isAnon = !!f.get("anon");
     const userCollegeYear = currentUserProfile?.collegeYear || "First Year";
-    comments.push({t:f.get("t").trim(),anon:isAnon,name:isAnon?"Anonymous Student":(currentUser.displayName||"Student"),year:userCollegeYear,uid:currentUser.uid});
+    const myName = currentUser.displayName || currentUserProfile?.name || "Student";
+    
+    comments.push({t:commentText, anon:isAnon, name:isAnon?"Anonymous Student":myName, year:userCollegeYear, uid:currentUser.uid});
     await updateDoc(ref,{comments});st.open=id;toast("Reply posted");renderFeed();
   }catch(err){console.error(err);toast("Could not post reply.")}
 };
