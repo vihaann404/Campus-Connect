@@ -95,7 +95,6 @@ nav.cats button{text-align:left;background:var(--card);border:1px solid var(--li
 nav.cats button:hover{border-color:var(--acc);color:var(--ink)}
 nav.cats button[aria-current=true]{background:var(--lv);color:var(--acc);border-color:var(--acc);font-weight:600}
 
-/* Upcoming Hackathons / Events Widget */
 .hackathon-widget{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px 14px;box-shadow:0 1px 2px var(--sh)}
 .hackathon-widget h4{font-size:0.9rem;font-weight:700;color:var(--acc);margin-bottom:8px;display:flex;align-items:center;gap:6px;text-transform:uppercase;letter-spacing:.03em}
 .hackathon-list{display:flex;flex-direction:column;gap:8px}
@@ -300,7 +299,6 @@ form.compose input,form.compose select,form.compose textarea{width:100%;padding:
   <div class="sidebar-col">
     <nav class="cats" id="cats" aria-label="Categories"></nav>
     
-    <!-- Upcoming Hackathons/Events Widget added in the bottom-left free space -->
     <div class="hackathon-widget">
       <h4>⚡ Upcoming Hackathons</h4>
       <div class="hackathon-list">
@@ -362,6 +360,7 @@ import {
   onSnapshot, query, orderBy, limit, serverTimestamp,
   arrayUnion, arrayRemove, setDoc, getDoc, where, increment
 } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js";
+import { GoogleGenAI } from "https://esm.run/@google/genai";
 
 const firebaseConfig = {
   apiKey: "AIzaSyC4U7U66KsMXriiHJg9H9t_bR31N6PRDS8",
@@ -378,6 +377,9 @@ const firebaseApp = initializeApp(firebaseConfig);
 const auth = getAuth(firebaseApp);
 const db = getFirestore(firebaseApp);
 const provider = new GoogleAuthProvider();
+
+// IMPORTANT: Initialize GoogleGenAI with your active Gemini API Key
+const ai = new GoogleGenAI({ apiKey: "YOUR_GEMINI_API_KEY_HERE" });
 
 provider.setCustomParameters({
   hd: "ves.ac.in",
@@ -414,13 +416,22 @@ function who(o){return o.anon?"Anonymous Student":esc(o.name||"Student")}
 function tag(yr){return yr?`<span class="tag yr">${esc(yr)}</span>`:""}
 function karmaTag(pts){return pts ? `<span class="tag karma">⚡ ${pts} Karma</span>` : "";}
 
-function generateAISummary(title, body) {
+// REAL LIVE GEMINI AI SUMMARIZER FUNCTION
+async function generateRealAISummary(title, body) {
   const cleanTitle = (title || "").trim();
   const cleanBody = (body || "").trim();
-  if (!cleanBody) return `Summary: Discussion regarding "${cleanTitle}".`;
-  const sentences = cleanBody.split(/[.!?।|?]+/).filter(Boolean);
-  if (sentences.length > 1) return `AI Brief: ${sentences[0].trim()}. Key point: ${sentences[1].trim()}.`;
-  return `AI Brief: ${cleanBody.substring(0, 150)}${cleanBody.length > 150 ? '...' : ''}`;
+  if (!cleanBody && !cleanTitle) return "No content to summarize.";
+
+  try {
+    const response = await ai.models.generateContent({
+      model: "gemini-2.5-flash",
+      contents: `Provide a concise 2-sentence summary of the following student post so readers know what it is about and whether they should interact:\n\nTitle: ${cleanTitle}\nBody: ${cleanBody}`
+    });
+    return response.text ? response.text.trim() : `Summary: Discussion regarding "${cleanTitle}".`;
+  } catch (err) {
+    console.error("Gemini API Error:", err);
+    return `Summary: ${cleanBody.substring(0, 140)}...`;
+  }
 }
 
 function renderCats(){
@@ -442,7 +453,7 @@ function renderCompose(){
       <label class="btn sm" style="display:flex;align-items:center;justify-content:center;cursor:pointer;margin:0;">
         📷 Add Photos <input type="file" id="postImagesInput" accept="image/png, image/jpeg, image/webp" multiple style="display:none">
       </label>
-      <button class="btn" type="submit">Post</button>
+      <button class="btn" type="submit">Post with AI Summary</button>
     </div>
     <div class="preview-grid" id="previewGrid"></div>
   </form>`;
@@ -495,7 +506,7 @@ function postHTML(p){
   const voters=p.voters||[];
   const voted=voters.includes(currentUser?.uid);
   const imagesHTML = p.images && p.images.length ? `<div class="post-images">${p.images.map(url=>`<img src="${esc(url)}" alt="Post image" onclick="window.open('${esc(url)}','_blank')">`).join("")}</div>` : "";
-  const summary = p.aiSummary || generateAISummary(p.title, p.body);
+  const summary = p.aiSummary || "Generating Gemini AI summary...";
   
   let friendBtnHTML = "";
   if(!p.anon && p.uid && p.uid !== currentUser?.uid) {
@@ -520,7 +531,7 @@ function postHTML(p){
     <div class="body">
     <div class="meta"><b>${who(p)}</b>${tag(p.year)}${!p.anon && p.authorKarma ? karmaTag(p.authorKarma) : ""}<span>${esc(p.cat)}</span><span>${ago(p.ts)}</span>${friendBtnHTML}</div>
     <h3>${esc(p.title)}</h3>
-    <div class="ai-summary"><b>🤖 AI Post Summary</b>${esc(summary)}</div>
+    <div class="ai-summary"><b>🤖 Gemini AI Summary</b>${esc(summary)}</div>
     ${p.body?`<p>${esc(p.body)}</p>`:""}${imagesHTML}
     <div class="acts"><button data-a="cm">${comments.length} ${comments.length===1?"reply":"replies"}</button><button data-a="rep">Report</button></div>
     ${open?`<div class="comments">${cm||'<div class="meta">No replies yet. Be the first to help.</div>'}<form class="cf" data-id="${esc(p.id)}"><input type="text" name="t" required maxlength="400" placeholder="Write a reply (multilingual)"><label class="chk meta"><input type="checkbox" name="anon" checked> Anonymous</label><button class="btn sm" type="submit">Reply</button></form></div>`:""}
@@ -559,8 +570,8 @@ function render(){renderCats();$("t-d").setAttribute("aria-selected",st.tab==="d
 
 async function seedDemoData(){
   const postSeeds=[
-    {id:"demo-post-1",cat:"Academics & DSA",title:"Where do I start with DSA as a first-year?",body:"Everyone talks about LeetCode but I don't know the order. Arrays first? Which language?",anon:false,year:"First Year",name:"Aarav Sharma",uid:"demo-user-1",voters:Array(14).fill("demo"),authorKarma:70,comments:[],aiSummary:"AI Brief: Focus on building foundational Data Structures & Algorithms problem-solving routines.",createdAt:serverTimestamp()},
-    {id:"demo-post-2",cat:"Hackathons & Competitions",title:"Is it okay to join a hackathon with no team?",body:"I've never done one. Are there team-formation threads here?",anon:false,year:"Second Year",name:"Meera Patel",uid:"demo-user-2",voters:Array(9).fill("demo"),authorKarma:45,comments:[],aiSummary:"AI Brief: Addresses student queries regarding team formation and participation strategies.",createdAt:serverTimestamp()}
+    {id:"demo-post-1",cat:"Academics & DSA",title:"Where do I start with DSA as a first-year?",body:"Everyone talks about LeetCode but I don't know the order. Arrays first? Which language?",anon:false,year:"First Year",name:"Aarav Sharma",uid:"demo-user-1",voters:Array(14).fill("demo"),authorKarma:70,comments:[],aiSummary:"Gemini Brief: The author is a first-year student seeking structured guidance on starting Data Structures and Algorithms, specifically asking about topic order and programming language selection.",createdAt:serverTimestamp()},
+    {id:"demo-post-2",cat:"Hackathons & Competitions",title:"Is it okay to join a hackathon with no team?",body:"I've never done one. Are there team-formation threads here?",anon:false,year:"Second Year",name:"Meera Patel",uid:"demo-user-2",voters:Array(9).fill("demo"),authorKarma:45,comments:[],aiSummary:"Gemini Brief: A beginner second-year student inquires about solo hackathon participation rules and team-matching resources on campus.",createdAt:serverTimestamp()}
   ];
   for(const p of postSeeds){const ref=doc(db,"posts",p.id);const snap=await getDoc(ref);if(!snap.exists())await setDoc(ref,p)}
 }
@@ -1046,6 +1057,9 @@ $("compose").onsubmit=async e=>{
       const bodyText = f.get("body").trim();
       if(containsProfanity(title) || containsProfanity(bodyText)) { toast("❌ Post rejected: Prohibited language."); return; }
 
+      toast("🤖 Generating Live Gemini AI Summary...");
+      const aiSummaryText = await generateRealAISummary(title, bodyText);
+
       const uploadedUrls = [];
       for(const file of st.selectedFiles) {
         const reader = new FileReader();
@@ -1059,9 +1073,9 @@ $("compose").onsubmit=async e=>{
         name:isAnon ? "Anonymous Student" : ((f.get("name")||"").trim()||myName),
         year: userCollegeYear, voters:[], comments:[], images: uploadedUrls,
         authorKarma: isAnon ? 0 : myKarma,
-        aiSummary: generateAISummary(title, bodyText), uid:currentUser.uid, createdAt:serverTimestamp()
+        aiSummary: aiSummaryText, uid:currentUser.uid, createdAt:serverTimestamp()
       });
-      st.tab="d"; st.selectedFiles=[]; toast("Posted with AI Summary");
+      st.tab="d"; st.selectedFiles=[]; toast("Posted with Live Gemini Summary!");
     }else{
       const title = f.get("title").trim();
       const desc = f.get("desc").trim();
