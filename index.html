@@ -4,260 +4,194 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>CampusConnect</title>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-/* Professional White-Blue & Black-Blue Theme */
-:root {
-  --bg: #F8FAFC;
-  --card: #FFFFFF;
-  --ink: #0F172A;
-  --mute: #64748B;
-  --line: #E2E8F0;
-  --acc: #2563EB;
-  --acc-ink: #FFFFFF;
-  --acc-hover: #1D4ED8;
-  --hi: #3B82F6;
-  --bad: #EF4444;
-  --sh: rgba(15, 23, 42, 0.08);
-  --header-grad: linear-gradient(135deg, #0F172A, #1E3A8A, #2563EB);
-  --tag-bg: #E0F2FE;
-  --tag-txt: #0284C7;
-  --tag-yr-bg: #DBEAFE;
-  --tag-yr-txt: #1E40AF;
-  box-sizing: border-box;
+:root{
+  --bg:#F0F4F8;
+  --card:#FFFFFF;
+  --ink:#1E293B;
+  --mute:#64748B;
+  --line:#CBD5E1;
+  --acc:#2563EB;
+  --acc-ink:#FFFFFF;
+  --hi:#2563EB;
+  --bad:#DC2626;
+  --grid:#E2E8F0;
+  --sh:rgba(0, 0, 0, 0.05);
+  --pk:#3B82F6;
+  --lv:#EFF6FF;
+  --mt:#0EA5E9;
+  --lm:#DBEAFE;
+  --sun:#FEF3C7;
+  box-sizing:border-box;
 }
-
-@media(prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #020617; 
-    --card: #0F172A; 
-    --ink: #F8FAFC;
-    --mute: #94A3B8;
-    --line: #1E293B;
-    --acc: #3B82F6;
-    --acc-ink: #FFFFFF;
-    --acc-hover: #60A5FA;
-    --hi: #60A5FA;
-    --bad: #F87171;
-    --sh: rgba(0, 0, 0, 0.4);
-    --header-grad: linear-gradient(135deg, #020617, #0F172A, #1E3A8A);
-    --tag-bg: #0C4A6E;
-    --tag-txt: #7DD3FC;
-    --tag-yr-bg: #1E3A8A;
-    --tag-yr-txt: #BFDBFE;
+@media(prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0F172A;
+    --card:#1E293B;
+    --ink:#F8FAFC;
+    --mute:#94A3B8;
+    --line:#334155;
+    --acc:#3B82F6;
+    --acc-ink:#0F172A;
+    --hi:#3B82F6;
+    --bad:#F87171;
+    --grid:#1E293B;
+    --sh:rgba(0, 0, 0, 0.3);
+    --mt:#38BDF8;
+    --lv:#1E3A8A;
   }
 }
-
-:root[data-theme="dark"] {
-  --bg: #020617;
-  --card: #0F172A;
-  --ink: #F8FAFC;
-  --mute: #94A3B8;
-  --line: #1E293B;
-  --acc: #3B82F6;
-  --acc-ink: #FFFFFF;
-  --acc-hover: #60A5FA;
-  --hi: #60A5FA;
-  --bad: #F87171;
-  --sh: rgba(0, 0, 0, 0.4);
-  --header-grad: linear-gradient(135deg, #020617, #0F172A, #1E3A8A);
-  --tag-bg: #0C4A6E;
-  --tag-txt: #7DD3FC;
-  --tag-yr-bg: #1E3A8A;
-  --tag-yr-txt: #BFDBFE;
+:root[data-theme="dark"]{
+  --bg:#0F172A;
+  --card:#1E293B;
+  --ink:#F8FAFC;
+  --mute:#94A3B8;
+  --line:#334155;
+  --acc:#3B82F6;
+  --acc-ink:#0F172A;
+  --hi:#3B82F6;
+  --bad:#F87171;
+  --grid:#1E293B;
+  --sh:rgba(0, 0, 0, 0.3);
+  --mt:#38BDF8;
+  --lv:#1E3A8A;
 }
 
-* { box-sizing: border-box; }
-html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background-color:var(--bg);color:var(--ink);font:15px/1.5 "IBM Plex Sans",system-ui,sans-serif}
+h1,h2,h3{font-family:"IBM Plex Sans",sans-serif;margin:0;line-height:1.2}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--hi);outline-offset:2px}
 
-body {
-  margin: 0;
-  background-color: var(--bg);
-  color: var(--ink);
-  font: 15px/1.6 "IBM Plex Sans", system-ui, sans-serif;
-  transition: background-color 0.3s, color 0.3s;
-}
+header{background:var(--card);color:var(--ink);padding:14px 24px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);box-shadow:0 1px 3px var(--sh)}
+header h1{font-size:1.4rem;font-weight:700;letter-spacing:-.01em;color:var(--acc)}
+header h1 span{background:var(--lv);color:var(--acc);padding:2px 8px;margin-left:4px;border-radius:6px;display:inline-block;font-weight:600}
 
-h1, h2, h3 { font-family: "IBM Plex Sans", sans-serif; margin: 0; line-height: 1.2; }
-button, input, select, textarea { font: inherit; color: inherit; }
-button { cursor: pointer; transition: all 0.2s ease; }
-:focus-visible { outline: 2px solid var(--hi); outline-offset: 2px; }
+.hbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.hbar button{border:1px solid var(--line);background:var(--card);border-radius:8px;padding:6px 14px;color:var(--ink);font-weight:500;box-shadow:0 1px 2px var(--sh)}
+.hbar button[aria-pressed=true]{background:var(--acc);color:var(--acc-ink);border-color:var(--acc)}
 
-/* Header styling */
-header {
-  background: var(--header-grad);
-  color: #fff;
-  padding: 16px 24px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  position: relative;
-  z-index: 100;
-}
+#authBtn{font-weight:600;background:var(--acc);color:var(--acc-ink);border-color:var(--acc)}
+.user-chip{display:none;align-items:center;gap:8px;position:relative;cursor:pointer;padding:4px 8px;border-radius:8px;border:1px solid var(--line);background:var(--card)}
+.user-chip img{width:32px;height:32px;border-radius:50%;border:1px solid var(--line)}
+.user-chip span{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:500}
+.signed-in #authBtn{display:none}
+.signed-in .user-chip{display:flex}
 
-header h1 { font-size: 1.4rem; font-weight: 600; letter-spacing: -0.01em; }
-header h1 span { color: #93C5FD; font-weight: 400; }
+.profile-dropdown{position:absolute;top:calc(100% + 8px);right:0;background:var(--card);border:1px solid var(--line);box-shadow:0 10px 15px -3px rgba(0,0,0,0.1),0 4px 6px -4px rgba(0,0,0,0.1);border-radius:10px;width:180px;display:none;flex-direction:column;z-index:100;overflow:hidden}
+.profile-dropdown.open{display:flex}
+.profile-dropdown button{background:none;border:none;text-align:left;padding:10px 14px;font-size:0.9rem;font-weight:500;color:var(--ink);cursor:pointer;width:100%}
+.profile-dropdown button:hover{background:var(--bg)}
+.profile-dropdown hr{margin:0;border:none;border-top:1px solid var(--line)}
 
-.hbar { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
-.hbar > button {
-  border: 1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.1);
-  border-radius: 6px; padding: 8px 16px; color: #fff; font-size: 0.9rem; font-weight: 500;
-}
-.hbar > button:hover { background: rgba(255,255,255,0.2); }
+main{max-width:1400px;width:95%;margin:24px auto;padding:0;display:grid;grid-template-columns:240px 1fr;gap:28px}
 
-#authBtn { background: #fff; color: #0F172A; border: none; font-weight: 600; }
-#authBtn:hover { background: #F1F5F9; }
+.sidebar-col{display:flex;flex-direction:column;gap:16px;align-self:start;position:sticky;top:20px}
+nav.cats{display:flex;flex-direction:column;gap:4px}
+nav.cats button{text-align:left;background:var(--card);border:1px solid var(--line);padding:10px 16px;color:var(--mute);border-radius:8px;font-weight:500;box-shadow:0 1px 2px var(--sh);transition:all .15s ease}
+nav.cats button:hover{border-color:var(--acc);color:var(--ink)}
+nav.cats button[aria-current=true]{background:var(--lv);color:var(--acc);border-color:var(--acc);font-weight:600}
 
-/* Dropdown Menu Styling */
-.user-chip-wrapper { position: relative; display: none; }
-.signed-in .user-chip-wrapper { display: block; }
-.user-chip { display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 4px 8px; border-radius: 8px; transition: background 0.2s; }
-.user-chip:hover { background: rgba(255,255,255,0.1); }
-.user-chip img { width: 32px; height: 32px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.2); }
-.user-chip span { max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 0.95rem; font-weight: 500; }
+/* Upcoming Hackathons / Events Widget */
+.hackathon-widget{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px 14px;box-shadow:0 1px 2px var(--sh)}
+.hackathon-widget h4{font-size:0.9rem;font-weight:700;color:var(--acc);margin-bottom:8px;display:flex;align-items:center;gap:6px;text-transform:uppercase;letter-spacing:.03em}
+.hackathon-list{display:flex;flex-direction:column;gap:8px}
+.hackathon-item{background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:8px;font-size:0.83rem}
+.hackathon-item b{display:block;color:var(--ink);font-size:0.86rem;margin-bottom:2px}
+.hackathon-item span{color:var(--mute);display:block;font-size:0.78rem}
 
-.dropdown-menu {
-  position: absolute; top: calc(100% + 8px); right: 0; min-width: 160px;
-  background: var(--card); border: 1px solid var(--line); box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-  border-radius: 8px; padding: 8px; opacity: 0; visibility: hidden;
-  transition: all 0.2s ease; transform: translateY(10px); z-index: 100;
-  display: flex; flex-direction: column; gap: 4px;
-}
-.user-chip-wrapper:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
-.dropdown-menu button { width: 100%; text-align: left; padding: 10px 14px; background: transparent; border: none; border-radius: 6px; color: var(--ink); font-size: 0.9rem; font-weight: 500; }
-.dropdown-menu button:hover { background: var(--bg); color: var(--acc); }
-.dropdown-menu button.danger:hover { color: var(--bad); }
+.tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;align-items:center}
+.tabs button{border:1px solid var(--line);background:var(--card);border-radius:8px;padding:8px 18px;font-weight:500;box-shadow:0 1px 2px var(--sh);color:var(--mute)}
+.tabs button[aria-selected=true]{background:var(--acc);color:var(--acc-ink);border-color:var(--acc);font-weight:600}
+.tabs .grow{flex:1}
 
-/* Main Layout Expanded */
-main { max-width: 1400px; width: 96%; margin: 0 auto; padding: 24px; display: grid; grid-template-columns: 220px 1fr; gap: 32px; }
+.btn{background:var(--acc);color:var(--acc-ink);border:1px solid var(--acc);box-shadow:0 1px 2px var(--sh);border-radius:8px;padding:8px 16px;font-weight:600}
+.btn.sm{padding:4px 10px;font-size:.85rem}
+#new { font-weight: 600; }
 
-nav.cats { display: flex; flex-direction: column; gap: 4px; align-self: start; position: sticky; top: 24px; }
-nav.cats button { text-align: left; background: transparent; border: none; padding: 10px 14px; color: var(--mute); border-radius: 6px; font-weight: 500; }
-nav.cats button:hover { background: var(--card); color: var(--ink); }
-nav.cats button[aria-current=true] { background: var(--card); color: var(--acc); font-weight: 600; box-shadow: 0 1px 3px var(--sh); border: 1px solid var(--line); }
+.search{width:100%;padding:10px 16px;border:1px solid var(--line);border-radius:8px;background:var(--card);margin-bottom:16px;box-shadow:0 1px 2px var(--sh)}
+form.compose{background:var(--card);border:1px solid var(--line);box-shadow:0 4px 6px -1px var(--sh);border-radius:10px;padding:18px;margin-bottom:20px;display:grid;gap:12px}
+form.compose input,form.compose select,form.compose textarea{width:100%;padding:9px 12px;border:1px solid var(--line);border-radius:6px;background:var(--bg)}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}.row>*{flex:1;min-width:140px}.row label.chk{flex:none;display:flex;gap:6px;align-items:center}.row label.chk input{width:auto}
 
-.tabs { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; border-bottom: 1px solid var(--line); padding-bottom: 12px; }
-.tabs button { border: 1px solid transparent; background: transparent; border-radius: 6px; padding: 8px 16px; font-weight: 500; color: var(--mute); }
-.tabs button:hover { background: var(--card); color: var(--ink); }
-.tabs button[aria-selected=true] { background: var(--card); color: var(--acc); border-color: var(--line); box-shadow: 0 1px 2px var(--sh); }
-.tabs .grow { flex: 1; }
+.post-images{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px;margin:10px 0}
+.post-images img{width:100%;height:100px;object-fit:cover;border-radius:6px;border:1px solid var(--line);cursor:pointer}
+.preview-grid{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.preview-thumb{position:relative;width:60px;height:60px}
+.preview-thumb img{width:100%;height:100%;object-fit:cover;border-radius:4px;border:1px solid var(--line)}
+.preview-thumb button{position:absolute;top:-6px;right:-6px;background:var(--bad);color:#fff;border:none;border-radius:50%;width:18px;height:18px;font-size:10px;cursor:pointer}
 
-.btn { background: var(--acc); color: var(--acc-ink); border: none; border-radius: 6px; padding: 8px 18px; font-weight: 500; box-shadow: 0 2px 4px var(--sh); }
-.btn:hover { background: var(--acc-hover); transform: translateY(-1px); }
-.btn.sm { padding: 6px 12px; font-size: 0.85rem; }
+.ai-summary{background:var(--lv);border:1px solid var(--line);border-radius:8px;padding:10px 14px;margin:10px 0;font-size:.9rem}
+.ai-summary b{color:var(--acc);display:block;margin-bottom:2px;font-size:.8rem;text-transform:uppercase;letter-spacing:.05em}
 
-#new { background: var(--acc); color: var(--acc-ink); }
+.post,.res{background:var(--card);border:1px solid var(--line);box-shadow:0 1px 3px var(--sh);border-radius:10px;display:flex;margin-bottom:16px;overflow:hidden}
+.vote{display:flex;flex-direction:column;align-items:center;gap:2px;padding:12px 10px;background:var(--bg);border-right:1px solid var(--line);min-width:56px}
+.vote button{background:none;border:0;font-size:1rem;line-height:1;padding:4px;border-radius:4px;color:var(--mute)}
+.vote button.on{color:#fff;background:var(--acc)}
+.body{padding:16px;flex:1;min-width:0}
+.meta{font-size:.85rem;color:var(--mute);display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.tag{background:var(--sun);color:#78350F;border:1px solid #FDE68A;border-radius:6px;padding:1px 6px;font-weight:500;font-size:.78rem}
+.tag.yr{background:var(--lv);color:var(--acc);border-color:var(--line)}
+.tag.karma{background:#DCFCE7;color:#166534;border-radius:6px;padding:1px 6px;font-weight:600;font-size:.78rem}
+.post h3,.res h3{font-size:1.2rem;font-weight:600;margin:6px 0}
+.post p{margin:0 0 10px;overflow-wrap:anywhere}
+.acts{display:flex;gap:8px;flex-wrap:wrap}
+.acts button{background:none;border:0;color:var(--mute);padding:4px 8px;border-radius:4px;font-size:.88rem;font-weight:500}
+.acts button:hover{color:var(--ink);background:var(--bg)}
+.comments{border-top:1px dashed var(--line);margin-top:12px;padding-top:12px}
+.cm{padding:8px 0 8px 12px;border-left:2px solid var(--line);margin-bottom:8px;font-size:.92rem}
+.cm.yr{border-left-color:var(--acc)}
+.cf{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.cf input[type=text]{flex:1;min-width:160px;padding:6px 10px;border:1px solid var(--line);border-radius:6px;background:var(--bg)}
+.res{padding:16px;justify-content:space-between;align-items:flex-start;flex-wrap:wrap}
+.res.gone{opacity:.6}
+.price{font-weight:600;font-size:1.2rem;background:var(--lv);color:var(--acc);border:1px solid var(--line);border-radius:8px;padding:4px 12px;display:inline-block}
+.empty{text-align:center;color:var(--mute);padding:40px 20px;border:1px dashed var(--line);border-radius:10px;background:var(--card)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 20px;border-radius:8px;z-index:9;font-weight:500;box-shadow:0 10px 15px -3px rgba(0,0,0,0.1)}
 
-.search { width: 100%; padding: 12px 18px; border: 1px solid var(--line); border-radius: 8px; background: var(--card); margin-bottom: 20px; box-shadow: 0 2px 6px var(--sh); font-size: 0.95rem; transition: border-color 0.2s; }
-.search:focus { border-color: var(--acc); outline: none; }
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:999;backdrop-filter:blur(2px)}
+.modal-overlay[hidden]{display:none !important}
+.modal-card{background:var(--card);border:1px solid var(--line);box-shadow:0 20px 25px -5px rgba(0,0,0,0.1);border-radius:12px;padding:24px;width:90%;max-width:440px;display:grid;gap:16px}
+.modal-card select,.modal-card input{width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);font-weight:500}
 
-form.compose { background: var(--card); border: 1px solid var(--line); box-shadow: 0 4px 12px var(--sh); border-radius: 8px; padding: 20px; margin-bottom: 24px; display: grid; gap: 14px; }
-form.compose input, form.compose select, form.compose textarea { width: 100%; padding: 10px 14px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); font-size: 0.95rem; }
-form.compose input:focus, form.compose select:focus, form.compose textarea:focus { border-color: var(--acc); outline: none; }
+.interest-pills{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
+.interest-pill{background:var(--lv);color:var(--acc);border:1px solid var(--line);padding:4px 10px;border-radius:999px;font-size:0.85rem;font-weight:500;display:inline-flex;align-items:center;gap:6px}
+.interest-pill button{background:none;border:none;color:var(--bad);cursor:pointer;font-weight:700;padding:0;font-size:0.8rem}
 
-.row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
-.row > * { flex: 1; min-width: 120px; }
-.row label.chk { flex: none; display: flex; gap: 8px; align-items: center; font-size: 0.9rem; color: var(--mute); }
-.row label.chk input { width: auto; }
+#phoneWidget{position:fixed;bottom:24px;right:24px;z-index:99;font-family:"IBM Plex Sans",sans-serif}
+#phoneToggleBtn{background:var(--acc);color:var(--acc-ink);border:1px solid var(--acc);box-shadow:0 4px 12px rgba(0,0,0,0.15);border-radius:50%;width:56px;height:56px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;cursor:pointer;transition:transform .2s;position:relative}
+#phoneToggleBtn:hover{transform:scale(1.05)}
+.badge-dot{position:absolute;top:0;right:0;background:var(--bad);color:#fff;border-radius:50%;width:18px;height:18px;font-size:10px;display:flex;align-items:center;justify-content:center;font-weight:600;border:2px solid var(--card)}
+#phoneContainer{display:none;width:320px;height:500px;background:var(--card);border:1px solid var(--line);box-shadow:0 20px 25px -5px rgba(0,0,0,0.15);border-radius:16px;overflow:hidden;flex-direction:column}
+#phoneContainer.open{display:flex}
+.phone-header{background:var(--card);border-bottom:1px solid var(--line);color:var(--ink);padding:12px 16px;font-weight:600;display:flex;justify-content:space-between;align-items:center;font-size:.95rem}
+.phone-nav{display:flex;background:var(--bg);border-bottom:1px solid var(--line)}
+.phone-nav button{flex:1;background:none;border:none;padding:10px;font-weight:500;font-size:.85rem;color:var(--mute);cursor:pointer;border-bottom:2px solid transparent}
+.phone-nav button.active{color:var(--acc);border-bottom-color:var(--acc);background:var(--card);font-weight:600}
+.phone-body{flex:1;overflow-y:auto;padding:12px;background:var(--bg);display:flex;flex-direction:column;gap:8px}
+.chat-conv-item, .friend-req-item{background:var(--card);border:1px solid var(--line);padding:10px 12px;border-radius:8px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;box-shadow:0 1px 2px var(--sh)}
+.msg-bubble{max-width:80%;padding:8px 12px;border-radius:8px;font-size:.9rem;margin-bottom:4px;overflow-wrap:anywhere}
+.msg-bubble.incoming{background:var(--card);border:1px solid var(--line);align-self:flex-start}
+.msg-bubble.outgoing{background:var(--lv);color:var(--ink);border:1px solid var(--line);align-self:flex-end}
+.phone-footer{padding:10px;background:var(--card);border-top:1px solid var(--line);display:flex;gap:6px}
+.phone-footer input{flex:1;padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--bg);font-size:.9rem}
 
-.post-images { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; margin: 14px 0; }
-.post-images img { width: 100%; height: 120px; object-fit: cover; border-radius: 6px; border: 1px solid var(--line); cursor: pointer; transition: opacity 0.2s; }
-.post-images img:hover { opacity: 0.85; }
+#authPanel{max-width:1400px;width:95%;margin:24px auto 0;padding:0}
+.auth-card{background:var(--card);border:1px solid var(--line);box-shadow:0 4px 6px -1px var(--sh);border-radius:12px;padding:24px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.auth-card p{margin:6px 0 0;color:var(--mute)}
+#app[hidden],#authPanel[hidden]{display:none!important}
 
-.preview-grid { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
-.preview-thumb { position: relative; width: 64px; height: 64px; }
-.preview-thumb img { width: 100%; height: 100%; object-fit: cover; border-radius: 4px; border: 1px solid var(--line); }
-.preview-thumb button { position: absolute; top: -6px; right: -6px; background: var(--bad); color: #fff; border: none; border-radius: 50%; width: 20px; height: 20px; font-size: 11px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-
-.ai-summary { background: var(--bg); border: 1px solid var(--line); border-left: 3px solid var(--acc); border-radius: 6px; padding: 12px 16px; margin: 12px 0; font-size: 0.9rem; color: var(--mute); }
-.ai-summary b { color: var(--ink); display: flex; align-items: center; gap: 6px; margin-bottom: 4px; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; }
-
-.post, .res { background: var(--card); border: 1px solid var(--line); box-shadow: 0 2px 6px var(--sh); border-radius: 8px; display: flex; margin-bottom: 16px; overflow: hidden; transition: box-shadow 0.2s; }
-.post:hover, .res:hover { box-shadow: 0 4px 12px var(--sh); }
-
-.vote { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 16px 12px; background: var(--bg); border-right: 1px solid var(--line); min-width: 60px; }
-.vote button { background: transparent; border: 1px solid transparent; font-size: 1rem; line-height: 1; padding: 6px; border-radius: 4px; color: var(--mute); }
-.vote button:hover { background: var(--line); color: var(--ink); }
-.vote button.on { color: var(--acc); background: rgba(37, 99, 235, 0.1); }
-
-.body { padding: 16px 20px; flex: 1; min-width: 0; }
-.meta { font-size: 0.85rem; color: var(--mute); display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 8px; }
-
-.tag { background: var(--tag-bg); color: var(--tag-txt); border-radius: 4px; padding: 2px 8px; font-weight: 500; font-size: 0.75rem; }
-.tag.yr { background: var(--tag-yr-bg); color: var(--tag-yr-txt); }
-
-.post h3, .res h3 { font-size: 1.1rem; font-weight: 600; margin: 0 0 8px; }
-.post p { margin: 0 0 12px; overflow-wrap: anywhere; color: var(--ink); }
-
-.acts { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 12px; }
-.acts button { background: none; border: 0; color: var(--mute); padding: 4px 8px; border-radius: 4px; font-size: 0.85rem; font-weight: 500; }
-.acts button:hover { color: var(--ink); background: var(--bg); }
-
-.comments { border-top: 1px solid var(--line); margin-top: 16px; padding-top: 16px; }
-.cm { padding: 10px 0 10px 14px; border-left: 2px solid var(--line); margin-bottom: 12px; font-size: 0.95rem; }
-.cm.yr { border-left-color: var(--acc); }
-
-.cf { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
-.cf input[type=text] { flex: 1; min-width: 140px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); }
-
-.res { padding: 20px; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; }
-.res.gone { opacity: 0.6; }
-.price { font-family: "IBM Plex Sans", sans-serif; font-weight: 600; font-size: 1.2rem; color: var(--acc); padding: 4px 12px; background: var(--bg); border-radius: 6px; border: 1px solid var(--line); display: inline-block; margin-bottom: 12px; }
-
-.empty { text-align: center; color: var(--mute); padding: 40px 20px; border: 1px dashed var(--line); border-radius: 8px; background: var(--card); }
-.toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); background: var(--ink); color: var(--bg); padding: 10px 20px; border-radius: 6px; z-index: 99; font-weight: 500; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
-
-/* Modals & Dashboards */
-.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 999; backdrop-filter: blur(4px); }
-.modal-overlay[hidden] { display: none !important; }
-.modal-card { background: var(--card); border: 1px solid var(--line); box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-radius: 12px; padding: 32px; width: 90%; max-width: 440px; display: grid; gap: 16px; }
-.modal-card h2 { font-weight: 600; font-size: 1.4rem; color: var(--ink); }
-.modal-card select { width: 100%; padding: 12px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); font-weight: 500; }
-
-.info-group { margin-bottom: 12px; }
-.info-group label { display: block; font-size: 0.85rem; color: var(--mute); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
-.info-group .info-val { font-size: 1.05rem; font-weight: 500; color: var(--ink); }
-
-.pill-container { display: flex; gap: 8px; flex-wrap: wrap; }
-.pill { background: var(--tag-bg); color: var(--tag-txt); padding: 6px 14px; border-radius: 999px; font-size: 0.85rem; font-weight: 600; border: 1px solid var(--line); }
-
-/* Phone Widget Styles */
-#phoneWidget { position: fixed; bottom: 24px; right: 24px; z-index: 99; font-family: "IBM Plex Sans", sans-serif; }
-#phoneToggleBtn { background: var(--acc); color: #fff; border: none; box-shadow: 0 4px 12px var(--sh); border-radius: 50%; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; cursor: pointer; transition: transform 0.2s, background 0.2s; position: relative; }
-#phoneToggleBtn:hover { transform: translateY(-2px); background: var(--acc-hover); }
-.badge-dot { position: absolute; top: 0; right: 0; background: var(--bad); color: #fff; border-radius: 50%; width: 20px; height: 20px; font-size: 11px; display: flex; align-items: center; justify-content: center; font-weight: 600; border: 2px solid var(--card); }
-#phoneContainer { display: none; width: 340px; height: 520px; background: var(--card); border: 1px solid var(--line); box-shadow: 0 10px 30px rgba(0,0,0,0.15); border-radius: 16px; overflow: hidden; flex-direction: column; }
-#phoneContainer.open { display: flex; }
-.phone-header { background: var(--ink); color: var(--bg); padding: 14px 16px; font-weight: 600; display: flex; justify-content: space-between; align-items: center; font-size: 0.95rem; }
-.phone-nav { display: flex; background: var(--card); border-bottom: 1px solid var(--line); }
-.phone-nav button { flex: 1; background: none; border: none; padding: 12px; font-weight: 500; font-size: 0.85rem; color: var(--mute); cursor: pointer; border-bottom: 2px solid transparent; }
-.phone-nav button.active { color: var(--acc); border-bottom-color: var(--acc); }
-.phone-body { flex: 1; overflow-y: auto; padding: 12px; background: var(--bg); display: flex; flex-direction: column; gap: 8px; }
-.chat-conv-item, .friend-req-item { background: var(--card); border: 1px solid var(--line); padding: 12px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: background 0.2s; }
-.chat-conv-item:hover { background: var(--bg); }
-.msg-bubble { max-width: 82%; padding: 8px 12px; border-radius: 8px; font-size: 0.9rem; margin-bottom: 6px; overflow-wrap: anywhere; }
-.msg-bubble.incoming { background: var(--card); border: 1px solid var(--line); align-self: flex-start; }
-.msg-bubble.outgoing { background: var(--acc); color: #fff; align-self: flex-end; }
-.phone-footer { padding: 12px; background: var(--card); border-top: 1px solid var(--line); display: flex; gap: 8px; }
-.phone-footer input { flex: 1; padding: 8px 12px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); font-size: 0.9rem; }
-
-#authPanel { max-width: 1040px; margin: 40px auto 0; padding: 0 24px; }
-.auth-card { background: var(--card); border: 1px solid var(--line); box-shadow: 0 4px 12px var(--sh); border-radius: 12px; padding: 32px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
-.auth-card h2 { font-size: 1.5rem; margin-bottom: 8px; }
-.auth-card p { margin: 0; color: var(--mute); font-size: 1.05rem; }
-#app[hidden], #authPanel[hidden] { display: none !important; }
-
-@media(max-width: 760px) {
-  main { grid-template-columns: 1fr; padding: 16px; width: 100%; }
-  nav.cats { flex-direction: row; overflow-x: auto; position: static; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
-  nav.cats button { white-space: nowrap; }
-  #authPanel { padding: 0 16px; }
-  .auth-card { flex-direction: column; align-items: flex-start; text-align: left; }
-  .dropdown-menu { right: 0; left: auto; }
+@media(max-width:900px){
+  main{grid-template-columns:1fr;padding:0 12px}
+  .sidebar-col{position:static}
+  nav.cats{flex-direction:row;overflow-x:auto;padding-bottom:8px}
+  nav.cats button{white-space:nowrap}
+  #authPanel{padding:0 12px}
+  .auth-card{flex-direction:column;align-items:flex-start}
+  .user-chip span{max-width:120px}
 }
 </style>
 </head>
@@ -265,19 +199,15 @@ form.compose input:focus, form.compose select:focus, form.compose textarea:focus
 <header>
   <h1>Campus<span>Connect</span></h1>
   <div class="hbar">
-    <button id="theme" aria-label="Toggle dark mode">Toggle Theme</button>
+    <button id="theme" aria-label="Toggle dark mode">Theme</button>
     <button id="authBtn">Sign in with VES ID</button>
-    
-    <!-- User Chip & Dropdown Menu -->
-    <div class="user-chip-wrapper">
-      <div class="user-chip" id="userChip">
-        <img id="userPhoto" alt="">
-        <span id="userName"></span>
-        <span style="font-size: 0.7rem; margin-left: 2px;">▼</span>
-      </div>
-      <div class="dropdown-menu">
-        <button id="openProfileBtn">👤 My Profile</button>
-        <button id="signOutBtn" class="danger">🚪 Sign Out</button>
+    <div class="user-chip" id="userChip">
+      <img id="userPhoto" alt="">
+      <span id="userName"></span>
+      <div class="profile-dropdown" id="profileDropdown">
+        <button id="myProfileMenuBtn">👤 My Profile</button>
+        <hr>
+        <button id="signOutBtn" style="color:var(--bad);">Sign out</button>
       </div>
     </div>
   </div>
@@ -290,53 +220,106 @@ form.compose input:focus, form.compose select:focus, form.compose textarea:focus
   </div>
 </section>
 
-<!-- Onboarding Modal -->
 <div id="onboardingModal" class="modal-overlay" hidden>
   <div class="modal-card">
-    <h2>Complete Your Profile</h2>
-    <p style="margin:0;color:var(--mute);font-size:.95rem;">Which year of college are you currently in?</p>
-    <select id="modalCollegeYear">
-      <option value="First Year">First Year</option>
-      <option value="Second Year">Second Year</option>
-      <option value="Third Year">Third Year</option>
-      <option value="Fourth Year">Fourth Year</option>
-    </select>
-    <button class="btn" id="saveOnboardingBtn">Save & Continue</button>
+    <h2>Complete Your Profile 🎓</h2>
+    <div style="display:grid; gap:10px;">
+      <label style="font-size:.9rem; color:var(--mute); font-weight:500;">Select Your Branch / Course:</label>
+      <select id="modalBranch">
+        <optgroup label="Engineering Degrees (B.Tech / B.E.)">
+          <option value="Computer Engineering">Computer Engineering</option>
+          <option value="Artificial Intelligence & Data Science (AIDS)">Artificial Intelligence & Data Science (AIDS)</option>
+          <option value="Artificial Intelligence & Machine Learning (AIML)">Artificial Intelligence & Machine Learning (AIML)</option>
+          <option value="Information Technology">Information Technology</option>
+          <option value="Electronics & Telecommunication Engineering">Electronics & Telecommunication Engineering</option>
+          <option value="Electronics & Computer Science">Electronics & Computer Science</option>
+          <option value="Automation & Robotics">Automation & Robotics</option>
+          <option value="Mechanical Engineering">Mechanical Engineering</option>
+          <option value="Civil Engineering">Civil Engineering</option>
+          <option value="Instrumentation Engineering">Instrumentation Engineering</option>
+          <option value="Master of Computer Applications (MCA)">Master of Computer Applications (MCA)</option>
+        </optgroup>
+        <optgroup label="Polytechnic Diploma Branches">
+          <option value="Diploma in Computer Technology">Diploma in Computer Technology</option>
+          <option value="Diploma in Information Technology">Diploma in Information Technology</option>
+          <option value="Diploma in Civil Engineering">Diploma in Civil Engineering</option>
+          <option value="Diploma in Mechanical Engineering">Diploma in Mechanical Engineering</option>
+          <option value="Diploma in Electrical Engineering">Diploma in Electrical Engineering</option>
+          <option value="Diploma in Electronics & Communication Engineering">Diploma in Electronics & Communication Engineering</option>
+          <option value="Diploma in Chemical Engineering">Diploma in Chemical Engineering</option>
+          <option value="Diploma in Automobile Engineering">Diploma in Automobile Engineering</option>
+        </optgroup>
+      </select>
+
+      <label style="font-size:.9rem; color:var(--mute); font-weight:500; margin-top:4px;">Select Academic Year:</label>
+      <select id="modalCollegeYear">
+        <option value="First Year">First Year</option>
+        <option value="Second Year">Second Year</option>
+        <option value="Third Year">Third Year</option>
+        <option value="Fourth Year">Fourth Year</option>
+      </select>
+    </div>
+    <button class="btn" id="saveOnboardingBtn" style="margin-top:6px;">Save & Continue</button>
   </div>
 </div>
 
-<!-- My Profile Dashboard Modal -->
-<div id="profileModal" class="modal-overlay" hidden>
-  <div class="modal-card">
-    <h2>My Profile Dashboard</h2>
-    
-    <div class="info-group">
-      <label>Course / Branch</label>
-      <div class="info-val">Computer Engineering</div>
+<div id="profileDashboardModal" class="modal-overlay" hidden>
+  <div class="modal-card" style="max-width: 500px;">
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <h2>My Student Profile</h2>
+      <button class="btn sm" id="closeProfileModal" style="background:transparent; color:var(--ink); border:none; font-size:1.2rem;">✕</button>
     </div>
-    
-    <div class="info-group">
-      <label>Academic Year</label>
-      <div class="info-val" id="dashYearDisplay">First Year</div>
-    </div>
-    
-    <div class="info-group">
-      <label>Interests</label>
-      <div class="pill-container">
-        <span class="pill">Webdev</span>
-        <span class="pill">Football</span>
-        <span class="pill">Music</span>
-        <span class="pill">UI/UX</span>
+    <div style="display:grid; gap:14px; margin-top:4px;">
+      <div>
+        <span style="font-size:0.85rem; color:var(--mute); display:block;">Course / Branch</span>
+        <b id="profileBranchDisplay" style="font-size:1.05rem;">-</b>
+      </div>
+      <div>
+        <span style="font-size:0.85rem; color:var(--mute); display:block;">Academic Year</span>
+        <b id="profileYearDisplay" style="font-size:1.05rem;">-</b>
+      </div>
+      <div>
+        <span style="font-size:0.85rem; color:var(--mute); display:block;">Karma Points</span>
+        <b id="profileKarmaDisplay" style="font-size:1.05rem; color:var(--acc);">0 pts</b>
+      </div>
+      <div>
+        <span style="font-size:0.85rem; color:var(--mute); display:block; margin-bottom:4px;">Hobbies & Interests</span>
+        <div class="interest-pills" id="profileInterestsContainer"></div>
+        <div style="display:flex; gap:6px; margin-top:8px;">
+          <input type="text" id="newInterestInput" placeholder="Add a hobby or interest" maxlength="30">
+          <button class="btn sm" id="addInterestBtn">Add</button>
+        </div>
       </div>
     </div>
-    
-    <button class="btn" id="closeProfileBtn" style="margin-top:10px; background:var(--line); color:var(--ink); box-shadow:none;">Close Dashboard</button>
+    <button class="btn" id="closeProfileBtn" style="margin-top:6px;">Close Dashboard</button>
   </div>
 </div>
 
 <div id="app" hidden>
 <main>
-  <nav class="cats" id="cats" aria-label="Categories"></nav>
+  <div class="sidebar-col">
+    <nav class="cats" id="cats" aria-label="Categories"></nav>
+    
+    <!-- Upcoming Hackathons/Events Widget added in the bottom-left free space -->
+    <div class="hackathon-widget">
+      <h4>⚡ Upcoming Hackathons</h4>
+      <div class="hackathon-list">
+        <div class="hackathon-item">
+          <b>VESIT Hacks 2026</b>
+          <span>Oct 24-25, 2026 • Campus</span>
+        </div>
+        <div class="hackathon-item">
+          <b>Smart India Hackathon</b>
+          <span>Nov 12, 2026 • National</span>
+        </div>
+        <div class="hackathon-item">
+          <b>AI CodeSprint 2.0</b>
+          <span>Dec 03, 2026 • Online</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <section>
     <div class="tabs" role="tablist">
       <button role="tab" id="t-d" aria-selected="true">Discussions</button>
@@ -345,7 +328,7 @@ form.compose input:focus, form.compose select:focus, form.compose textarea:focus
       <button class="btn" id="new">+ New post</button>
     </div>
     <div id="compose"></div>
-    <input class="search" id="q" type="search" placeholder="Search posts and resources..." aria-label="Search">
+    <input class="search" id="q" type="search" placeholder="Search posts and resources (multilingual)" aria-label="Search">
     <div id="feed"></div>
   </section>
 </main>
@@ -354,12 +337,12 @@ form.compose input:focus, form.compose select:focus, form.compose textarea:focus
 <div id="phoneWidget" hidden>
   <div id="phoneContainer">
     <div class="phone-header">
-      <span>📱 Campus Chat</span>
-      <button class="btn sm" id="closePhoneBtn" style="padding:2px 8px; background:rgba(255,255,255,0.2); color:#fff; border:none;">✕</button>
+      <span>📱 Campus Chat (Multilingual)</span>
+      <button class="btn sm" id="closePhoneBtn" style="padding:2px 6px; background:transparent; border:none; color:var(--ink);">✕</button>
     </div>
     <div class="phone-nav">
       <button id="navTabChats" class="active">💬 Chats</button>
-      <button id="navTabReqs">👥 Requests <span id="reqBadgeCount" style="background:var(--bad);color:#fff;border-radius:50%;padding:2px 6px;font-size:10px;display:none;margin-left:4px;">0</span></button>
+      <button id="navTabReqs">👥 Requests <span id="reqBadgeCount" style="background:var(--bad);color:#fff;border-radius:50%;padding:1px 5px;font-size:10px;display:none;">0</span></button>
     </div>
     <div class="phone-body" id="phoneBody"></div>
   </div>
@@ -377,7 +360,7 @@ import {
 import {
   getFirestore, collection, doc, addDoc, updateDoc, deleteDoc,
   onSnapshot, query, orderBy, limit, serverTimestamp,
-  arrayUnion, arrayRemove, setDoc, getDoc, where
+  arrayUnion, arrayRemove, setDoc, getDoc, where, increment
 } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -397,7 +380,8 @@ const db = getFirestore(firebaseApp);
 const provider = new GoogleAuthProvider();
 
 provider.setCustomParameters({
-  hd: "ves.ac.in"
+  hd: "ves.ac.in",
+  prompt: "select_account"
 });
 
 const profanityPatterns = [
@@ -418,7 +402,7 @@ let S={posts:[],res:[],chats:[],friendData:{requests:[],friends:[]}};
 let st={cat:"All",tab:"d",open:null,compose:false,q:"",selectedFiles:[],chatSelectedFileBase64:null,activeChat:null,phoneTab:"chats"};
 let currentUser=null;
 let currentUserProfile=null;
-let unsubPosts=null, unsubRes=null, unsubChats=null, unsubFriends=null;
+let unsubPosts=null, unsubRes=null, unsubChats=null, unsubFriends=null, unsubUser=null;
 
 const $=id=>document.getElementById(id);
 function toast(m){const t=$("toast");t.textContent=m;t.hidden=false;clearTimeout(toast.x);toast.x=setTimeout(()=>t.hidden=true,2200)}
@@ -428,22 +412,15 @@ function ago(ts){
 }
 function who(o){return o.anon?"Anonymous Student":esc(o.name||"Student")}
 function tag(yr){return yr?`<span class="tag yr">${esc(yr)}</span>`:""}
-
-// Profile Modal Logic
-$("openProfileBtn").onclick = () => {
-  $("profileModal").hidden = false;
-};
-$("closeProfileBtn").onclick = () => {
-  $("profileModal").hidden = true;
-};
+function karmaTag(pts){return pts ? `<span class="tag karma">⚡ ${pts} Karma</span>` : "";}
 
 function generateAISummary(title, body) {
   const cleanTitle = (title || "").trim();
   const cleanBody = (body || "").trim();
-  if (!cleanBody) return `Discussion regarding "${cleanTitle}".`;
-  const sentences = cleanBody.split(/[.!?]+/).filter(Boolean);
-  if (sentences.length > 1) return `Summary: ${sentences[0].trim()}. Key takeaway: ${sentences[1].trim()}.`;
-  return `Discussion on "${cleanTitle}": ${cleanBody.substring(0, 140)}${cleanBody.length > 140 ? '...' : ''}`;
+  if (!cleanBody) return `Summary: Discussion regarding "${cleanTitle}".`;
+  const sentences = cleanBody.split(/[.!?।|?]+/).filter(Boolean);
+  if (sentences.length > 1) return `AI Brief: ${sentences[0].trim()}. Key point: ${sentences[1].trim()}.`;
+  return `AI Brief: ${cleanBody.substring(0, 150)}${cleanBody.length > 150 ? '...' : ''}`;
 }
 
 function renderCats(){
@@ -454,15 +431,15 @@ function renderCompose(){
   const el=$("compose"); if(!st.compose){el.innerHTML="";return}
   const opts=CATS.slice(1).map(c=>`<option>${esc(c)}</option>`).join("");
   if(st.tab==="d") el.innerHTML=`<form class="compose" id="cf">
-    <input name="title" required maxlength="120" placeholder="Your question or topic">
-    <textarea name="body" rows="3" maxlength="800" placeholder="Add details (optional)"></textarea>
+    <input name="title" required maxlength="120" placeholder="Your question or topic (any language)">
+    <textarea name="body" rows="3" maxlength="800" placeholder="Add details..."></textarea>
     <div class="row">
       <select name="cat">${opts}</select>
       <label class="chk"><input type="checkbox" name="anon" checked> Post anonymously</label>
     </div>
     <div class="row">
-      <input name="name" placeholder="Your first name (used if not anonymous)">
-      <label class="btn sm" style="display:flex;align-items:center;justify-content:center;cursor:pointer;margin:0;background:var(--line);color:var(--ink);">
+      <input name="name" placeholder="Your name (if not anonymous)">
+      <label class="btn sm" style="display:flex;align-items:center;justify-content:center;cursor:pointer;margin:0;">
         📷 Add Photos <input type="file" id="postImagesInput" accept="image/png, image/jpeg, image/webp" multiple style="display:none">
       </label>
       <button class="btn" type="submit">Post</button>
@@ -470,14 +447,14 @@ function renderCompose(){
     <div class="preview-grid" id="previewGrid"></div>
   </form>`;
   else el.innerHTML=`<form class="compose" id="rf">
-    <input name="title" required maxlength="100" placeholder="What are you sharing? (book, calculator, notes...)">
-    <textarea name="desc" rows="2" maxlength="300" placeholder="Condition, pickup place, details"></textarea>
+    <input name="title" required maxlength="100" placeholder="What are you sharing?">
+    <textarea name="desc" rows="2" maxlength="300" placeholder="Details"></textarea>
     <div class="row">
       <select name="type"><option>Give away</option><option>Sell</option><option>Swap</option></select>
-      <input name="price" type="number" min="0" placeholder="Price in ₹ (if selling)">
-      <input name="phone" required placeholder="Phone / WhatsApp Number">
+      <input name="price" type="number" min="0" placeholder="Price in ₹">
+      <input name="phone" required placeholder="Phone / WhatsApp">
     </div>
-    <div class="row"><select name="cat">${opts}</select><input name="name" placeholder="Your first name" required><button class="btn" type="submit">Share</button></div>
+    <div class="row"><select name="cat">${opts}</select><input name="name" placeholder="Your name" required><button class="btn" type="submit">Share</button></div>
   </form>`;
 
   const fileInput = $("postImagesInput");
@@ -500,7 +477,7 @@ function renderPreviews() {
   grid.innerHTML = st.selectedFiles.map((file, idx) => `
     <div class="preview-thumb">
       <img src="${URL.createObjectURL(file)}" alt="preview">
-      <button type="button" data-idx="${idx}">✕</button>
+      <button type="button" data-idx="${idx}">×</button>
     </div>
   `).join("");
   grid.querySelectorAll("button").forEach(btn => {
@@ -514,7 +491,7 @@ function renderPreviews() {
 function postHTML(p){
   const open=st.open===p.id;
   const comments=p.comments||[];
-  const cm=comments.map(c=>`<div class="cm${c.year?" yr":""}"><div class="meta"><b>${who(c)}</b>${tag(c.year)}</div>${esc(c.t)}</div>`).join("");
+  const cm=comments.map(c=>`<div class="cm${c.year?" yr":""}"><div class="meta"><b>${who(c)}</b>${tag(c.year)}${!c.anon && c.karma ? karmaTag(c.karma) : ""}</div>${esc(c.t)}</div>`).join("");
   const voters=p.voters||[];
   const voted=voters.includes(currentUser?.uid);
   const imagesHTML = p.images && p.images.length ? `<div class="post-images">${p.images.map(url=>`<img src="${esc(url)}" alt="Post image" onclick="window.open('${esc(url)}','_blank')">`).join("")}</div>` : "";
@@ -528,23 +505,25 @@ function postHTML(p){
     const incomingReq = S.friendData.requests?.some(r => r.from === p.uid && r.to === currentUser?.uid && r.status === "pending");
 
     if(isFriend) {
-      friendBtnHTML = `<button class="btn sm" disabled style="background:var(--mt);color:#fff;">Friends ✓</button>`;
+      friendBtnHTML = `<button class="btn sm" disabled style="background:var(--bg);color:var(--mute);border-color:var(--line);">Friends ✓</button>`;
     } else if(sentReq) {
-      friendBtnHTML = `<button class="btn sm" disabled style="background:var(--line);">Request Sent</button>`;
+      friendBtnHTML = `<button class="btn sm" disabled style="background:var(--bg);color:var(--mute);border-color:var(--line);">Request Sent</button>`;
     } else if(incomingReq) {
       friendBtnHTML = `<button class="btn sm" data-a="accept-req-direct" data-uid="${esc(p.uid)}" data-name="${esc(p.name)}">Accept Request</button>`;
     } else {
-      friendBtnHTML = `<button class="btn sm" data-a="add-friend" data-uid="${esc(p.uid)}" data-name="${esc(p.name)}">➕ Add Friend</button>`;
+      friendBtnHTML = `<button class="btn sm" data-a="add-friend" data-uid="${esc(p.uid)}" data-name="${esc(p.name)}">+ Add Friend</button>`;
     }
   }
 
   return `<article class="post" data-id="${esc(p.id)}">
     <div class="vote"><button data-a="up" class="${voted?"on":""}" aria-label="Upvote">▲</button><b>${voters.length}</b></div>
-    <div class="body"><div class="meta"><b>${who(p)}</b>${tag(p.year)}<span>${esc(p.cat)}</span><span>${ago(p.ts)}</span>${friendBtnHTML}</div>
-    <h3>${esc(p.title)}</h3>${p.body?`<p>${esc(p.body)}</p>`:""}${imagesHTML}
-    <div class="ai-summary"><b>🤖 AI Summary</b>${esc(summary)}</div>
+    <div class="body">
+    <div class="meta"><b>${who(p)}</b>${tag(p.year)}${!p.anon && p.authorKarma ? karmaTag(p.authorKarma) : ""}<span>${esc(p.cat)}</span><span>${ago(p.ts)}</span>${friendBtnHTML}</div>
+    <h3>${esc(p.title)}</h3>
+    <div class="ai-summary"><b>🤖 AI Post Summary</b>${esc(summary)}</div>
+    ${p.body?`<p>${esc(p.body)}</p>`:""}${imagesHTML}
     <div class="acts"><button data-a="cm">${comments.length} ${comments.length===1?"reply":"replies"}</button><button data-a="rep">Report</button></div>
-    ${open?`<div class="comments">${cm||'<div class="meta">No replies yet. Be the first to help.</div>'}<form class="cf" data-id="${esc(p.id)}"><input type="text" name="t" required maxlength="400" placeholder="Write a reply..."><label class="chk meta"><input type="checkbox" name="anon" checked> Anonymous</label><button class="btn sm" type="submit">Reply</button></form></div>`:""}
+    ${open?`<div class="comments">${cm||'<div class="meta">No replies yet. Be the first to help.</div>'}<form class="cf" data-id="${esc(p.id)}"><input type="text" name="t" required maxlength="400" placeholder="Write a reply (multilingual)"><label class="chk meta"><input type="checkbox" name="anon" checked> Anonymous</label><button class="btn sm" type="submit">Reply</button></form></div>`:""}
     </div></article>`;
 }
 
@@ -580,20 +559,27 @@ function render(){renderCats();$("t-d").setAttribute("aria-selected",st.tab==="d
 
 async function seedDemoData(){
   const postSeeds=[
-    {id:"demo-post-1",cat:"Academics & DSA",title:"Where do I start with DSA as a first-year?",body:"Everyone talks about LeetCode but I don't know the order. Arrays first? Which language?",anon:false,year:"First Year",name:"Aarav Sharma",uid:"demo-user-1",voters:Array(14).fill("demo"),comments:[],aiSummary:"This discussion focuses on building foundational Data Structures & Algorithms problem-solving routines.",createdAt:serverTimestamp()},
-    {id:"demo-post-2",cat:"Hackathons & Competitions",title:"Is it okay to join a hackathon with no team?",body:"I've never done one. Are there team-formation threads here?",anon:false,year:"Second Year",name:"Meera Patel",uid:"demo-user-2",voters:Array(9).fill("demo"),comments:[],aiSummary:"This thread addresses student queries regarding team formation and participation strategies.",createdAt:serverTimestamp()}
+    {id:"demo-post-1",cat:"Academics & DSA",title:"Where do I start with DSA as a first-year?",body:"Everyone talks about LeetCode but I don't know the order. Arrays first? Which language?",anon:false,year:"First Year",name:"Aarav Sharma",uid:"demo-user-1",voters:Array(14).fill("demo"),authorKarma:70,comments:[],aiSummary:"AI Brief: Focus on building foundational Data Structures & Algorithms problem-solving routines.",createdAt:serverTimestamp()},
+    {id:"demo-post-2",cat:"Hackathons & Competitions",title:"Is it okay to join a hackathon with no team?",body:"I've never done one. Are there team-formation threads here?",anon:false,year:"Second Year",name:"Meera Patel",uid:"demo-user-2",voters:Array(9).fill("demo"),authorKarma:45,comments:[],aiSummary:"AI Brief: Addresses student queries regarding team formation and participation strategies.",createdAt:serverTimestamp()}
   ];
   for(const p of postSeeds){const ref=doc(db,"posts",p.id);const snap=await getDoc(ref);if(!snap.exists())await setDoc(ref,p)}
 }
 
 function startRealtimeListeners(){
-  if(unsubPosts)unsubPosts(); if(unsubRes)unsubRes(); if(unsubChats)unsubChats(); if(unsubFriends)unsubFriends();
+  if(unsubPosts)unsubPosts(); if(unsubRes)unsubRes(); if(unsubChats)unsubChats(); if(unsubFriends)unsubFriends(); if(unsubUser)unsubUser();
   const pq=query(collection(db,"posts"),orderBy("createdAt","desc"),limit(100));
   unsubPosts=onSnapshot(pq,snap=>{S.posts=snap.docs.map(d=>({id:d.id,...d.data(),ts:d.data().createdAt}));renderFeed()},() => {});
   const rq=query(collection(db,"resources"),orderBy("createdAt","desc"),limit(100));
   unsubRes=onSnapshot(rq,snap=>{S.res=snap.docs.map(d=>({id:d.id,...d.data(),ts:d.data().createdAt}));renderFeed()},() => {});
   
   if(currentUser) {
+    unsubUser = onSnapshot(doc(db, "users", currentUser.uid), snap => {
+      if(snap.exists()) {
+        currentUserProfile = snap.data();
+        updateProfileModalDisplay();
+      }
+    });
+
     const cq=query(collection(db,"chats"), where("members", "array-contains", currentUser.uid));
     unsubChats=onSnapshot(cq,snap=>{
       S.chats=snap.docs.map(d=>({id:d.id,...d.data()}));
@@ -646,10 +632,7 @@ async function sendFriendRequest(toUid, toName) {
     myData.requests.push(reqObj);
     await setDoc(myRef, myData, {merge:true});
     toast(`Friend request sent to ${toName}`);
-  } catch(err) {
-    console.error(err);
-    toast("Could not send friend request.");
-  }
+  } catch(err) { console.error(err); }
 }
 
 async function acceptFriendRequest(req) {
@@ -657,14 +640,13 @@ async function acceptFriendRequest(req) {
   const senderRef = doc(db, "friendships", req.from);
 
   const myName = currentUser.displayName || currentUserProfile?.name || "Student";
-  
   let senderName = req.fromName || "Student";
   try {
     const senderUserSnap = await getDoc(doc(db, "users", req.from));
     if(senderUserSnap.exists() && senderUserSnap.data().name) {
       senderName = senderUserSnap.data().name;
     }
-  } catch(e) { console.error(e); }
+  } catch(e) {}
 
   const mySnap = await getDoc(myRef);
   let myData = mySnap.exists() ? mySnap.data() : { requests: [], friends: [] };
@@ -692,18 +674,10 @@ async function acceptFriendRequest(req) {
     isGroup: false,
     createdAt: serverTimestamp(),
     members: [currentUser.uid, req.from],
-    memberNames: {
-      [currentUser.uid]: myName,
-      [req.from]: senderName
-    },
-    messages: [{
-      text: "You are now connected as friends! Say hello 👋", 
-      uid: "system", 
-      name: "System", 
-      ts: Date.now()
-    }]
+    memberNames: { [currentUser.uid]: myName, [req.from]: senderName },
+    messages: [{ text: "Connected as friends! Say hello 👋", uid: "system", name: "System", ts: Date.now() }]
   });
-  toast("Friend request accepted & private chat unlocked!");
+  toast("Friend request accepted!");
 }
 
 async function declineFriendRequest(req) {
@@ -721,14 +695,11 @@ async function declineFriendRequest(req) {
 async function ensureFriendshipDoc(user) {
   const fRef = doc(db, "friendships", user.uid);
   const snap = await getDoc(fRef);
-  if (!snap.exists()) {
-    await setDoc(fRef, { requests: [], friends: [] });
-  }
+  if (!snap.exists()) { await setDoc(fRef, { requests: [], friends: [] }); }
 }
 
 async function handleSuccessfulAuth(user) {
   currentUser = user;
-
   if (!user.email || !user.email.endsWith("@ves.ac.in")) {
     toast("Access restricted. Please sign in with your @ves.ac.in college email.");
     await signOut(auth);
@@ -738,20 +709,24 @@ async function handleSuccessfulAuth(user) {
   const userDocRef = doc(db, "users", user.uid);
   const userSnap = await getDoc(userDocRef);
 
-  if (!userSnap.exists() || !userSnap.data().collegeYear) {
+  if (!userSnap.exists() || !userSnap.data().collegeYear || !userSnap.data().branch) {
     $("onboardingModal").hidden = false;
     $("saveOnboardingBtn").onclick = async () => {
+      const selectedBranch = $("modalBranch").value;
       const selectedYear = $("modalCollegeYear").value;
+      const defaultInterests = ["Webdev", "DSA"];
       await setDoc(userDocRef, {
         uid: user.uid, name: user.displayName || "Student", email: user.email || "",
-        collegeYear: selectedYear, updatedAt: serverTimestamp()
+        branch: selectedBranch, collegeYear: selectedYear, interests: defaultInterests, karma: 0, updatedAt: serverTimestamp()
       }, { merge: true });
-      currentUserProfile = { collegeYear: selectedYear };
+      currentUserProfile = { branch: selectedBranch, collegeYear: selectedYear, interests: defaultInterests, karma: 0 };
       $("onboardingModal").hidden = true;
       initializeUIState(user);
     };
   } else {
     currentUserProfile = userSnap.data();
+    if(!currentUserProfile.interests) currentUserProfile.interests = ["Webdev", "DSA"];
+    if(currentUserProfile.karma === undefined) currentUserProfile.karma = 0;
     initializeUIState(user);
   }
 }
@@ -763,35 +738,77 @@ async function initializeUIState(user) {
   $("phoneWidget").hidden = false;
   $("userPhoto").src = user.photoURL || "";
   $("userName").textContent = `${user.displayName || "Student"}`;
-  
-  // Set modal details dynamically
-  const displayYear = currentUserProfile.collegeYear || "First Year";
-  const yearDisplayEl = $("dashYearDisplay");
-  if(yearDisplayEl) { yearDisplayEl.textContent = displayYear; }
-
+  updateProfileModalDisplay();
   try {
     await ensureFriendshipDoc(user);
     seedDemoData();
     startRealtimeListeners();
     render();
-  } catch (e) {
-    console.error(e);
-    toast("Firebase setup error.");
-  }
+  } catch (e) { console.error(e); }
 }
 
-async function signIn(){try{await signInWithPopup(auth,provider)}catch(e){console.error(e);toast("Google sign-in failed")}}
+function updateProfileModalDisplay() {
+  if(!currentUserProfile) return;
+  $("profileBranchDisplay").textContent = currentUserProfile.branch || "-";
+  $("profileYearDisplay").textContent = currentUserProfile.collegeYear || "-";
+  $("profileKarmaDisplay").textContent = (currentUserProfile.karma || 0) + " pts";
+  
+  const container = $("profileInterestsContainer");
+  const interests = currentUserProfile.interests || [];
+  container.innerHTML = interests.length ? interests.map((item, idx) => `
+    <span class="interest-pill">${esc(item)} <button type="button" data-idx="${idx}">×</button></span>
+  `).join("") : `<span style="font-size:0.85rem; color:var(--mute);">No interests added yet.</span>`;
+
+  container.querySelectorAll("button[data-idx]").forEach(btn => {
+    btn.onclick = async () => {
+      const idx = +btn.dataset.idx;
+      currentUserProfile.interests.splice(idx, 1);
+      await setDoc(doc(db, "users", currentUser.uid), { interests: currentUserProfile.interests }, { merge: true });
+      updateProfileModalDisplay();
+    };
+  });
+}
+
+async function signIn(){try{await signInWithPopup(auth,provider)}catch(e){console.error(e)}}
 $("authBtn").onclick=signIn;$("authBtnLarge").onclick=signIn;
+
+const userChip = $("userChip");
+const profileDropdown = $("profileDropdown");
+userChip.onclick = (e) => { e.stopPropagation(); profileDropdown.classList.toggle("open"); };
+window.onclick = () => { profileDropdown.classList.remove("open"); };
+
+$("myProfileMenuBtn").onclick = () => {
+  profileDropdown.classList.remove("open");
+  updateProfileModalDisplay();
+  $("profileDashboardModal").hidden = false;
+};
+$("closeProfileModal").onclick = () => { $("profileDashboardModal").hidden = true; };
+$("closeProfileBtn").onclick = () => { $("profileDashboardModal").hidden = true; };
+
+$("addInterestBtn").onclick = async () => {
+  const input = $("newInterestInput");
+  const val = input.value.trim();
+  if(!val) return;
+  if(containsProfanity(val)) { toast("Prohibited language detected"); return; }
+  if(!currentUserProfile.interests) currentUserProfile.interests = [];
+  if(currentUserProfile.interests.includes(val)) { toast("Already added"); return; }
+  currentUserProfile.interests.push(val);
+  input.value = "";
+  await setDoc(doc(db, "users", currentUser.uid), { interests: currentUserProfile.interests }, { merge: true });
+  updateProfileModalDisplay();
+  toast("Interest added!");
+};
+
 $("signOutBtn").onclick = async () => {
   try {
     if (currentUser) {
-      const userDocRef = doc(db, "users", currentUser.uid);
-      await setDoc(userDocRef, { collegeYear: null }, { merge: true });
+      await setDoc(doc(db, "users", currentUser.uid), { branch: null, collegeYear: null, interests: null }, { merge: true });
     }
-    currentUserProfile = null; st.activeChat = null; st.selectedFiles = []; st.chatSelectedFileBase64 = null;
+    currentUserProfile = null; st.activeChat = null; st.selectedFiles = [];
+    profileDropdown.classList.remove("open");
     await signOut(auth);
-    toast("Signed out & profile reset");
-  } catch (err) { console.error(err); toast("Error signing out"); }
+    toast("Signed out");
+  } catch (err) { console.error(err); }
 };
 
 $("phoneToggleBtn").onclick = () => { st.phoneOpen = true; $("phoneContainer").classList.add("open"); $("phoneToggleBtn").style.display = "none"; renderPhone(); };
@@ -809,10 +826,10 @@ function renderPhone(){
         <div><b>${esc(r.fromName || "Student")}</b><div class="meta">Wants to be friends</div></div>
         <div style="display:flex;gap:4px;">
           <button class="btn sm" data-action="accept" data-from="${esc(r.from)}" data-name="${esc(r.fromName)}">Accept</button>
-          <button class="btn sm" data-action="decline" data-from="${esc(r.from)}" style="background:var(--bad);color:#fff;">Decline</button>
+          <button class="btn sm" data-action="decline" data-from="${esc(r.from)}" style="background:var(--bad);color:#fff;border-color:var(--bad);">Decline</button>
         </div>
       </div>
-    `).join("") : `<div class="empty" style="padding:20px;font-size:.9rem;">No pending friend requests.</div>`;
+    `).join("") : `<div class="empty" style="padding:20px;font-size:.9rem;">No pending requests.</div>`;
 
     body.querySelectorAll("button[data-action]").forEach(btn => {
       btn.onclick = async () => {
@@ -827,14 +844,12 @@ function renderPhone(){
     let listHTML = S.chats.length ? S.chats.map(c=> {
       let displayTitle = c.title || "Chat";
       let chatIcon = "💬";
-
       if(!c.isGroup && c.members && c.members.length === 2 && c.memberNames) {
         const otherUid = c.members.find(uid => uid !== currentUser.uid);
         displayTitle = c.memberNames[otherUid] || "Private Chat";
       } else if (c.isGroup || (c.members && c.members.length > 2)) {
         chatIcon = "👥";
       }
-
       return `
         <div class="chat-conv-item" data-chatid="${esc(c.id)}">
           <div><b>${chatIcon} ${esc(displayTitle)}</b><div class="meta">${esc(c.lastMessage || "Tap to chat")}</div></div>
@@ -852,20 +867,17 @@ function renderPhone(){
     });
 
     const friendsList = S.friendData.friends || [];
-    const availableFriends = friendsList.map(f => {
-      if(typeof f === 'string') return { uid: f, name: "Friend" };
-      return f;
-    }).filter(f => !existingChatPartnerUids.has(f.uid));
+    const availableFriends = friendsList.map(f => typeof f === 'string' ? { uid: f, name: "Friend" } : f).filter(f => !existingChatPartnerUids.has(f.uid));
 
     let friendsHTML = "";
     if(availableFriends.length > 0) {
       friendsHTML = `
-        <div style="font-weight:700;margin-top:8px;margin-bottom:4px;font-size:.8rem;color:var(--mute)">YOUR FRIENDS (TAP TO START CHAT)</div>
+        <div style="font-weight:600;margin-top:12px;margin-bottom:6px;font-size:.8rem;color:var(--mute)">YOUR FRIENDS</div>
         <div style="display:flex;flex-direction:column;gap:4px;">
           ${availableFriends.map(f => `
             <div class="chat-conv-item start-friend-chat" data-frienduid="${esc(f.uid)}" data-friendname="${esc(f.name)}">
-              <div><b>👤 ${esc(f.name)}</b><div class="meta">Start private conversation</div></div>
-              <span>➕</span>
+              <div><b>👤 ${esc(f.name)}</b><div class="meta">Start multilingual chat</div></div>
+              <span>+</span>
             </div>
           `).join("")}
         </div>
@@ -873,10 +885,10 @@ function renderPhone(){
     }
 
     body.innerHTML = `
-      <div style="font-weight:700;margin-bottom:4px;font-size:.8rem;color:var(--mute)">ACTIVE CONVERSATIONS</div>
+      <div style="font-weight:600;margin-bottom:6px;font-size:.8rem;color:var(--mute)">CONVERSATIONS</div>
       <div style="max-height:180px;overflow-y:auto;display:flex;flex-direction:column;gap:6px;">${listHTML}</div>
       ${friendsHTML}
-      <button class="btn sm" id="createGroupChatBtn" style="margin-top:8px;background:var(--acc);color:var(--acc-ink);">+ Create New Group</button>
+      <button class="btn sm" id="createGroupChatBtn" style="margin-top:12px;width:100%;">+ Create Multilingual Group</button>
     `;
 
     body.querySelectorAll(".chat-conv-item[data-chatid]").forEach(el=>{
@@ -888,54 +900,36 @@ function renderPhone(){
         const friendUid = el.dataset.frienduid;
         const friendName = el.dataset.friendname || "Friend";
         const myName = currentUser.displayName || currentUserProfile?.name || "Student";
-        
         const newChatRef = await addDoc(collection(db, "chats"), {
           isGroup: false,
           createdAt: serverTimestamp(),
           members: [currentUser.uid, friendUid],
-          memberNames: {
-            [currentUser.uid]: myName,
-            [friendUid]: friendName
-          },
-          messages: [{
-            text: "Started a private chat. Say hello! 👋",
-            uid: "system",
-            name: "System",
-            ts: Date.now()
-          }]
+          memberNames: { [currentUser.uid]: myName, [friendUid]: friendName },
+          messages: [{ text: "Chat started! Say hello 👋 (Supports any language)", uid: "system", name: "System", ts: Date.now() }]
         });
-
         st.activeChat = newChatRef.id;
         renderPhone();
-        toast("Private chat started!");
+        toast("Chat started!");
       };
     });
 
     const groupBtn = $("createGroupChatBtn");
     if(groupBtn) {
       groupBtn.onclick = async () => {
-        const groupName = prompt("Enter Group Chat Name:");
+        const groupName = prompt("Enter Group Name:");
         if(!groupName) return;
-        if(containsProfanity(groupName)) {
-          toast("❌ Group creation rejected: Prohibited language detected.");
-          return;
-        }
+        if(containsProfanity(groupName)) { toast("❌ Prohibited language detected."); return; }
         const myName = currentUser.displayName || currentUserProfile?.name || "Student";
         await addDoc(collection(db,"chats"),{
-          isGroup: true,
-          title: groupName,
-          lastMessage: `Group created by ${myName}`,
-          createdAt: serverTimestamp(),
-          members: [currentUser.uid],
-          memberNames: { [currentUser.uid]: myName },
-          messages: [{text: `Group "${groupName}" was created.`, uid: "system", name: "System", ts: Date.now()}]
+          isGroup: true, title: groupName, lastMessage: `Group created`, createdAt: serverTimestamp(),
+          members: [currentUser.uid], memberNames: { [currentUser.uid]: myName },
+          messages: [{text: `Group "${groupName}" created.`, uid: "system", name: "System", ts: Date.now()}]
         });
-        toast("Group created successfully!");
+        toast("Group created!");
       };
     }
   } else {
     const chat = S.chats.find(c=>c.id===st.activeChat) || {title:"Chat", messages:[], members:[]};
-    
     let activeChatTitle = chat.title;
     if(!chat.isGroup && chat.members && chat.members.length === 2 && chat.memberNames) {
       const otherUid = chat.members.find(uid => uid !== currentUser.uid);
@@ -944,31 +938,30 @@ function renderPhone(){
 
     const msgs = chat.messages || [];
     body.innerHTML = `
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;border-bottom:1px solid var(--line);padding-bottom:4px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;border-bottom:1px solid var(--line);padding-bottom:6px;">
         <div style="display:flex;align-items:center;gap:6px;">
           <button class="btn sm" id="backToChats" style="padding:2px 6px;">←</button>
           <b style="font-size:.9rem;">${esc(activeChatTitle)}</b>
         </div>
-        ${chat.isGroup ? `<button class="btn sm" id="addGroupMemberBtn" style="font-size:.7rem;padding:2px 6px;" title="Add friend to group">+ Add Member</button>` : ``}
+        ${chat.isGroup ? `<button class="btn sm" id="addGroupMemberBtn" style="font-size:.75rem;padding:2px 6px;">+ Add</button>` : ``}
       </div>
       <div style="flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:6px;" id="msgList">
         ${msgs.length ? msgs.map(m=>`
           <div class="msg-bubble ${m.uid===currentUser?.uid?'outgoing':'incoming'}">
             <b>${esc(m.name)}:</b>${m.text ? `<div>${esc(m.text)}</div>` : ""}
-            ${m.image ? `<img src="${esc(m.image)}" alt="chat photo" style="max-width:100%;border-radius:6px;margin-top:4px;cursor:pointer;" onclick="window.open('${esc(m.image)}','_blank')">` : ""}
+            ${m.image ? `<img src="${esc(m.image)}" alt="photo" style="max-width:100%;border-radius:6px;margin-top:4px;cursor:pointer;" onclick="window.open('${esc(m.image)}','_blank')">` : ""}
           </div>
-        `).join("") : '<div class="meta" style="text-align:center;margin-top:20px;">No messages here yet. Say hello!</div>'}
+        `).join("") : '<div class="meta" style="text-align:center;margin-top:20px;">No messages yet.</div>'}
       </div>
       <div id="chatImagePreview" style="display:flex;gap:6px;flex-wrap:wrap;padding:4px 8px;"></div>
-      <form class="phone-footer" id="chatMsgForm" style="display:flex;gap:4px;align-items:center;">
-        <label class="btn sm" style="padding:4px 8px;margin:0;cursor:pointer;" title="Attach photo">📷<input type="file" id="chatImageInput" accept="image/*" style="display:none"></label>
-        <input name="msg" placeholder="Type a message..." autocomplete="off" style="flex:1;">
+      <form class="phone-footer" id="chatMsgForm" style="display:flex;gap:6px;align-items:center;">
+        <label class="btn sm" style="padding:6px 10px;margin:0;cursor:pointer;" title="Attach photo">📷<input type="file" id="chatImageInput" accept="image/*" style="display:none"></label>
+        <input name="msg" placeholder="Type a message (any language)..." autocomplete="off" style="flex:1;">
         <button class="btn sm" type="submit">Send</button>
       </form>
     `;
 
     $("backToChats").onclick = () => { st.activeChat = null; st.chatSelectedFileBase64 = null; renderPhone(); };
-    
     const msgList = $("msgList");
     if(msgList) msgList.scrollTop = msgList.scrollHeight;
 
@@ -983,9 +976,7 @@ function renderPhone(){
           st.chatSelectedFileBase64 = ev.target.result;
           $("chatImagePreview").innerHTML = `<div class="preview-thumb"><img src="${ev.target.result}" alt="preview"><button type="button" id="removeChatImgBtn">×</button></div>`;
           const removeBtn = $("removeChatImgBtn");
-          if(removeBtn) {
-            removeBtn.onclick = () => { st.chatSelectedFileBase64 = null; $("chatImagePreview").innerHTML = ""; };
-          }
+          if(removeBtn) removeBtn.onclick = () => { st.chatSelectedFileBase64 = null; $("chatImagePreview").innerHTML = ""; };
         };
         reader.readAsDataURL(file);
       };
@@ -994,47 +985,23 @@ function renderPhone(){
     if(chat.isGroup) {
       $("addGroupMemberBtn").onclick = async () => {
         const friends = S.friendData.friends || [];
-        if(friends.length === 0) {
-          toast("You have no friends to add yet!");
-          return;
-        }
-        
-        // Show friend selector dialog using prompt or list
+        if(friends.length === 0) { toast("No friends to add!"); return; }
         const friendListStr = friends.map((f, i) => `${i + 1}. ${f.name}`).join("\n");
-        const selection = prompt(`Select a friend to add by number:\n${friendListStr}`);
+        const selection = prompt(`Select friend number:\n${friendListStr}`);
         if(!selection) return;
-
-        const index = parseInt(selection) - 1;
-        const selectedFriend = friends[index];
-        if(!selectedFriend) {
-          toast("Invalid selection.");
-          return;
-        }
-
-        const friendUid = selectedFriend.uid;
-        const friendName = selectedFriend.name || "Friend";
-
-        if(chat.members && chat.members.includes(friendUid)) { 
-          toast("User is already in this group"); 
-          return; 
-        }
-
+        const selectedFriend = friends[parseInt(selection) - 1];
+        if(!selectedFriend) { toast("Invalid selection"); return; }
+        
         const chatRef = doc(db, "chats", st.activeChat);
         const updatedMessages = chat.messages || [];
-        updatedMessages.push({
-          text: `${friendName} was added to the group.`, 
-          uid: "system", 
-          name: "System", 
-          ts: Date.now()
-        });
-
+        updatedMessages.push({ text: `${selectedFriend.name} added.`, uid: "system", name: "System", ts: Date.now() });
         await updateDoc(chatRef, {
-          members: arrayUnion(friendUid),
-          [`memberNames.${friendUid}`]: friendName,
+          members: arrayUnion(selectedFriend.uid),
+          [`memberNames.${selectedFriend.uid}`]: selectedFriend.name,
           messages: updatedMessages,
-          lastMessage: `${friendName} joined the group`
+          lastMessage: `${selectedFriend.name} joined`
         });
-        toast("Member added to group successfully!");
+        toast("Member added!");
       };
     }
 
@@ -1043,29 +1010,16 @@ function renderPhone(){
       const input = e.target.elements.msg;
       const text = input.value.trim();
       const image = st.chatSelectedFileBase64 || null;
-
       if(!text && !image) return;
-      if(text && containsProfanity(text)) {
-        toast("❌ Message rejected: Prohibited language is not allowed.");
-        return;
-      }
+      if(text && containsProfanity(text)) { toast("❌ Message rejected: Prohibited language."); return; }
 
       const chatRef = doc(db,"chats",st.activeChat);
       const snap = await getDoc(chatRef);
       if(!snap.exists()) return;
       const messages = snap.data().messages || [];
       const myName = currentUser.displayName || currentUserProfile?.name || "Student";
-      messages.push({
-        text: text || "",
-        image: image,
-        uid: currentUser.uid,
-        name: myName,
-        ts: Date.now()
-      });
-      await updateDoc(chatRef, {
-        messages, 
-        lastMessage: text || "📷 Photo"
-      });
+      messages.push({ text: text || "", image, uid: currentUser.uid, name: myName, ts: Date.now() });
+      await updateDoc(chatRef, { messages, lastMessage: text || "📷 Photo" });
       input.value = "";
       st.chatSelectedFileBase64 = null;
       $("chatImagePreview").innerHTML = "";
@@ -1078,12 +1032,7 @@ $("t-d").onclick=()=>{st.tab="d";st.compose=false;render()};
 $("t-r").onclick=()=>{st.tab="r";st.compose=false;render()};
 $("new").onclick=()=>{st.compose=!st.compose;st.selectedFiles=[];render()};
 $("q").oninput=e=>{st.q=e.target.value;renderFeed()};
-
-$("theme").onclick=()=>{
-  const r=document.documentElement;
-  const isDark = getComputedStyle(r).getPropertyValue("--bg").trim() === "#020617" || r.dataset.theme === "dark";
-  r.dataset.theme = isDark ? "light" : "dark";
-};
+$("theme").onclick=()=>{const r=document.documentElement,d=getComputedStyle(r).getPropertyValue("--bg").trim()==="#0F172A";r.dataset.theme=d?"light":"dark"};
 
 $("compose").onsubmit=async e=>{
   e.preventDefault(); if(!currentUser)return toast("Sign in first");
@@ -1091,22 +1040,16 @@ $("compose").onsubmit=async e=>{
   try{
     const userCollegeYear = currentUserProfile?.collegeYear || "First Year";
     const myName = currentUser.displayName || currentUserProfile?.name || "Student";
+    const myKarma = currentUserProfile?.karma || 0;
     if(e.target.id==="cf"){
       const title = f.get("title").trim();
       const bodyText = f.get("body").trim();
-
-      if(containsProfanity(title) || containsProfanity(bodyText)) {
-        toast("❌ Post rejected: Abusive or prohibited language is not allowed.");
-        return;
-      }
+      if(containsProfanity(title) || containsProfanity(bodyText)) { toast("❌ Post rejected: Prohibited language."); return; }
 
       const uploadedUrls = [];
       for(const file of st.selectedFiles) {
         const reader = new FileReader();
-        const base64 = await new Promise(resolve => {
-          reader.onload = ev => resolve(ev.target.result);
-          reader.readAsDataURL(file);
-        });
+        const base64 = await new Promise(resolve => { reader.onload = ev => resolve(ev.target.result); reader.readAsDataURL(file); });
         uploadedUrls.push(base64);
       }
       const isAnon = !!f.get("anon");
@@ -1115,18 +1058,15 @@ $("compose").onsubmit=async e=>{
         cat:f.get("cat"), title, body:bodyText, anon:isAnon,
         name:isAnon ? "Anonymous Student" : ((f.get("name")||"").trim()||myName),
         year: userCollegeYear, voters:[], comments:[], images: uploadedUrls,
+        authorKarma: isAnon ? 0 : myKarma,
         aiSummary: generateAISummary(title, bodyText), uid:currentUser.uid, createdAt:serverTimestamp()
       });
-      st.tab="d"; st.selectedFiles=[]; toast("Posted to CampusConnect");
+      st.tab="d"; st.selectedFiles=[]; toast("Posted with AI Summary");
     }else{
       const title = f.get("title").trim();
       const desc = f.get("desc").trim();
       const phone = f.get("phone").trim();
-
-      if(containsProfanity(title) || containsProfanity(desc)) {
-        toast("❌ Resource rejected: Abusive or prohibited language is not allowed.");
-        return;
-      }
+      if(containsProfanity(title) || containsProfanity(desc)) { toast("❌ Resource rejected."); return; }
 
       await addDoc(collection(db,"resources"),{
         title, type:f.get("type"), price:+f.get("price")||0,
@@ -1145,22 +1085,20 @@ $("feed").onclick=async e=>{
   try{
     if(a==="up"){
       const ref=doc(db,"posts",id);const snap=await getDoc(ref);if(!snap.exists())return;
-      const voters=snap.data().voters||[];const already=voters.includes(currentUser.uid);
+      const data = snap.data();
+      const voters=data.voters||[];const already=voters.includes(currentUser.uid);
       await updateDoc(ref,{voters:already?arrayRemove(currentUser.uid):arrayUnion(currentUser.uid)});
+      if(!data.anon && data.uid) {
+        await updateDoc(doc(db, "users", data.uid), { karma: increment(already ? -5 : 5) });
+      }
     }else if(a==="cm"){st.open=st.open===id?null:id;renderFeed()}
-    else if(a==="rep"){toast("Reported. Moderators will review.")}
-    else if(a==="take"){
-      await updateDoc(doc(db,"resources",id),{ taken: true, takenBy: currentUser.uid });
-      toast("Resource requested");
-    }
-    else if(a==="cancel-take"){
-      await updateDoc(doc(db,"resources",id),{ taken: false, takenBy: null });
-      toast("Resource request cancelled");
-    }
+    else if(a==="rep"){toast("Reported.")}
+    else if(a==="take"){await updateDoc(doc(db,"resources",id),{ taken: true, takenBy: currentUser.uid });toast("Requested");}
+    else if(a==="cancel-take"){await updateDoc(doc(db,"resources",id),{ taken: false, takenBy: null });toast("Cancelled");}
     else if(a==="rrep"){toast("Reported.")}
     else if(a==="add-friend") { await sendFriendRequest(b.dataset.uid, b.dataset.name); }
     else if(a==="accept-req-direct") { await acceptFriendRequest({from: b.dataset.uid, fromName: b.dataset.name}); }
-  }catch(err){console.error(err);toast("Action failed.")}
+  }catch(err){console.error(err);}
 };
 
 $("feed").onsubmit=async e=>{
@@ -1168,20 +1106,21 @@ $("feed").onsubmit=async e=>{
   const id=e.target.dataset.id,f=new FormData(e.target),ref=doc(db,"posts",id);
   try{
     const commentText = f.get("t").trim();
-    if(containsProfanity(commentText)) {
-      toast("❌ Reply rejected: Abusive or prohibited language is not allowed.");
-      return;
-    }
+    if(containsProfanity(commentText)) { toast("❌ Reply rejected: Prohibited language."); return; }
 
     const snap=await getDoc(ref);if(!snap.exists())return;
     const comments=snap.data().comments||[];
     const isAnon = !!f.get("anon");
     const userCollegeYear = currentUserProfile?.collegeYear || "First Year";
     const myName = currentUser.displayName || currentUserProfile?.name || "Student";
+    const myKarma = currentUserProfile?.karma || 0;
     
-    comments.push({t:commentText, anon:isAnon, name:isAnon?"Anonymous Student":myName, year:userCollegeYear, uid:currentUser.uid});
-    await updateDoc(ref,{comments});st.open=id;toast("Reply posted");renderFeed();
-  }catch(err){console.error(err);toast("Could not post reply.")}
+    comments.push({t:commentText, anon:isAnon, name:isAnon?"Anonymous Student":myName, year:userCollegeYear, karma: isAnon ? 0 : myKarma, uid:currentUser.uid});
+    await updateDoc(ref,{comments});
+    if(!isAnon) { await updateDoc(doc(db, "users", currentUser.uid), { karma: increment(5) }); }
+
+    st.open=id;toast("Reply posted (+5 Karma)");renderFeed();
+  }catch(err){console.error(err);}
 };
 
 onAuthStateChanged(auth, async user => {
@@ -1189,8 +1128,8 @@ onAuthStateChanged(auth, async user => {
   else {
     currentUser = null; currentUserProfile = null;
     document.body.classList.remove("signed-in");
-    $("authPanel").hidden = false; $("app").hidden = true; $("phoneWidget").hidden = true; $("onboardingModal").hidden = true;
-    if (unsubPosts) unsubPosts(); if (unsubRes) unsubRes(); if (unsubChats) unsubChats(); if (unsubFriends) unsubFriends();
+    $("authPanel").hidden = false; $("app").hidden = true; $("phoneWidget").hidden = true; $("onboardingModal").hidden = true; $("profileDashboardModal").hidden = true;
+    if (unsubPosts) unsubPosts(); if (unsubRes) unsubRes(); if (unsubChats) unsubChats(); if (unsubFriends) unsubFriends(); if (unsubUser) unsubUser();
   }
 });
 </script>
